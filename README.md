@@ -2,6 +2,8 @@
 
 Okey Match backend API'sinin otomatik test paketi. Tüm endpoint'leri test eder, profesyonel HTML raporu oluşturur ve spec uyumluluk analizi sunar.
 
+### 🌐 [📊 Canlı Test Raporu →](https://kolaytech.github.io/okey-match-api-test/api_test_report.html)
+
 ## 📊 Son Test Sonuçları
 
 | Metrik | Değer |
