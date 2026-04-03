@@ -581,7 +581,7 @@ def generate_html_report():
         .header h1 {{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;letter-spacing:-0.02em;}}
         .header .subtitle {{color:var(--text-secondary);font-size:1rem;}}
         .header .test-date {{color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;font-family:'JetBrains Mono',monospace;}}
-        .summary {{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem;margin-bottom:3rem;}}
+        .summary {{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-bottom:3rem;}}
         .summary-card {{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}}
         .summary-card::before {{content:'';position:absolute;top:0;left:0;right:0;height:3px;}}
         .summary-card.total::before {{background:linear-gradient(90deg,#3b82f6,#8b5cf6);}}
@@ -608,13 +608,13 @@ def generate_html_report():
         .endpoint {{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.75rem;overflow:hidden;transition:all 0.2s ease;}}
         .endpoint:hover {{border-color:rgba(59,130,246,0.3);}}
         .endpoint.expected-fail-row {{border-left:3px solid var(--accent-purple);}}
-        .endpoint-header {{display:flex;align-items:center;padding:1rem 1.25rem;cursor:pointer;gap:1rem;user-select:none;flex-wrap:wrap;}}
+        .endpoint-header {{display:flex;align-items:center;padding:1rem 1.25rem;cursor:pointer;gap:1rem;user-select:none;}}
         .endpoint-status {{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}}
         .endpoint-status.success {{background:var(--accent-green-bg);}}
         .endpoint-status.fail {{background:var(--accent-red-bg);}}
         .method-badge {{padding:0.2rem 0.6rem;border-radius:6px;font-size:0.7rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:60px;text-align:center;flex-shrink:0;}}
-        .endpoint-path {{font-family:'JetBrains Mono',monospace;font-size:0.85rem;flex:1;min-width:200px;}}
-        .endpoint-desc {{color:var(--text-secondary);font-size:0.8rem;flex-shrink:0;}}
+        .endpoint-path {{font-family:'JetBrains Mono',monospace;font-size:0.85rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
+        .endpoint-desc {{color:var(--text-secondary);font-size:0.8rem;flex-shrink:0;max-width:280px;text-align:right;}}
         .endpoint-meta {{display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}}
         .status-code {{font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.15rem 0.5rem;border-radius:6px;}}
         .status-code.s2xx {{background:var(--accent-green-bg);color:var(--accent-green);}}
@@ -654,6 +654,22 @@ def generate_html_report():
         .spec-table td {{padding:0.5rem;border-bottom:1px solid rgba(42,49,85,0.5);color:var(--text-secondary);}}
         .spec-table code {{background:rgba(59,130,246,0.1);color:var(--accent-blue);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.75rem;}}
         .footer {{text-align:center;padding:2rem;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border);margin-top:2rem;}}
+
+        /* Responsive */
+        @media (max-width: 900px) {{
+            .summary {{grid-template-columns:repeat(2,1fr);}}
+            .endpoint-header {{flex-wrap:wrap;gap:0.5rem;}}
+            .endpoint-path {{min-width:100%;order:10;font-size:0.8rem;}}
+            .endpoint-desc {{max-width:100%;text-align:left;order:11;font-size:0.75rem;}}
+            .header h1 {{font-size:1.8rem;}}
+            .spec-panel-header {{flex-wrap:wrap;gap:0.5rem;}}
+        }}
+        @media (max-width: 480px) {{
+            .summary {{grid-template-columns:repeat(2,1fr);}}
+            .summary-card .number {{font-size:1.8rem;}}
+            .container {{padding:1rem;}}
+            .endpoint-meta {{gap:0.5rem;}}
+        }}
     </style>
 </head>
 <body>
