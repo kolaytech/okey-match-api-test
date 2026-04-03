@@ -10,99 +10,125 @@
         * {margin:0;padding:0;box-sizing:border-box;}
         body {font-family:'Inter',-apple-system,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;line-height:1.6;}
         .background-pattern {position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(59,130,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(139,92,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 0%,rgba(16,185,129,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}
-        .container {max-width:1400px;margin:0 auto;padding:2rem 3rem;position:relative;z-index:1;}
-        .header {text-align:center;margin-bottom:3rem;padding:2rem 0;}
-        .header h1 {font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;letter-spacing:-0.02em;}
+        .container {max-width:1400px;margin:0 auto;padding:2rem 2.5rem;position:relative;z-index:1;}
+        .header {text-align:center;margin-bottom:2.5rem;padding:2rem 0;}
+        .header h1 {font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;letter-spacing:-0.02em;}
         .header .subtitle {color:var(--text-secondary);font-size:1rem;}
         .header .test-date {color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;font-family:'JetBrains Mono',monospace;}
-        .summary {display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-bottom:3rem;}
-        .summary-card {background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.25rem 0.75rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:visible;}
-        .summary-card::before {content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+
+        /* Summary Cards */
+        .summary {display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2.5rem;}
+        .summary-card {background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}
+        .summary-card::before {content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
         .summary-card.total::before {background:linear-gradient(90deg,#3b82f6,#8b5cf6);}
         .summary-card.success::before {background:linear-gradient(90deg,#10b981,#34d399);}
         .summary-card.failed::before {background:linear-gradient(90deg,#ef4444,#f87171);}
         .summary-card.rate::before {background:linear-gradient(90deg,#f59e0b,#fbbf24);}
         .summary-card.expected::before {background:linear-gradient(90deg,#8b5cf6,#a78bfa);}
         .summary-card:hover {transform:translateY(-4px);border-color:rgba(59,130,246,0.3);box-shadow:0 8px 25px rgba(0,0,0,0.3);}
-        .summary-card .number {font-size:2.5rem;font-weight:800;margin-bottom:0.25rem;}
+        .summary-card .number {font-size:2.2rem;font-weight:800;margin-bottom:0.25rem;line-height:1.1;}
         .summary-card.total .number {color:var(--accent-blue);}
         .summary-card.success .number {color:var(--accent-green);}
         .summary-card.failed .number {color:var(--accent-red);}
         .summary-card.rate .number {color:var(--accent-amber);}
         .summary-card.expected .number {color:var(--accent-purple);}
-        .summary-card .label {color:var(--text-secondary);font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;white-space:nowrap;}
-        .category {margin-bottom:2.5rem;}
+        .summary-card .label {color:var(--text-secondary);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}
+
+        /* Categories */
+        .category {margin-bottom:2rem;}
         .category-header {display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);}
         .category-icon {font-size:1.5rem;}
         .category-header h2 {font-size:1.4rem;font-weight:700;}
-        .category-badge {margin-left:auto;display:flex;gap:0.5rem;}
-        .badge {padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;font-weight:600;}
+        .category-badge {margin-left:auto;display:flex;gap:0.5rem;flex-shrink:0;}
+        .badge {padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;font-weight:600;white-space:nowrap;}
         .badge-success {background:var(--accent-green-bg);color:var(--accent-green);border:1px solid rgba(16,185,129,0.2);}
         .badge-fail {background:var(--accent-red-bg);color:var(--accent-red);border:1px solid rgba(239,68,68,0.2);}
-        .endpoint {background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.75rem;overflow:hidden;transition:all 0.2s ease;}
+
+        /* Endpoints */
+        .endpoint {background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.6rem;overflow:hidden;transition:all 0.2s ease;}
         .endpoint:hover {border-color:rgba(59,130,246,0.3);}
         .endpoint.expected-fail-row {border-left:3px solid var(--accent-purple);}
-        .endpoint-header {display:flex;align-items:center;padding:1rem 1.25rem;cursor:pointer;gap:1rem;user-select:none;}
-        .endpoint-status {width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+        .endpoint-header {display:grid;grid-template-columns:auto auto 1fr auto auto auto;align-items:center;padding:0.85rem 1.25rem;cursor:pointer;gap:0.75rem;user-select:none;}
+        .endpoint-status {width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;}
         .endpoint-status.success {background:var(--accent-green-bg);}
         .endpoint-status.fail {background:var(--accent-red-bg);}
-        .method-badge {padding:0.2rem 0.6rem;border-radius:6px;font-size:0.7rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:60px;text-align:center;flex-shrink:0;}
-        .endpoint-path {font-family:'JetBrains Mono',monospace;font-size:0.85rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        .endpoint-desc {color:var(--text-secondary);font-size:0.8rem;flex-shrink:0;max-width:280px;text-align:right;}
-        .endpoint-meta {display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}
-        .status-code {font-family:'JetBrains Mono',monospace;font-size:0.8rem;font-weight:600;padding:0.15rem 0.5rem;border-radius:6px;}
+        .method-badge {padding:0.2rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:55px;text-align:center;}
+        .endpoint-path {font-family:'JetBrains Mono',monospace;font-size:0.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .endpoint-desc {color:var(--text-secondary);font-size:0.78rem;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;}
+        .endpoint-meta {display:flex;align-items:center;gap:0.5rem;}
+        .status-code {font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;padding:0.15rem 0.45rem;border-radius:6px;}
         .status-code.s2xx {background:var(--accent-green-bg);color:var(--accent-green);}
         .status-code.s4xx {background:var(--accent-red-bg);color:var(--accent-red);}
         .status-code.s5xx {background:rgba(139,92,246,0.1);color:var(--accent-purple);}
         .status-code.s0xx {background:rgba(107,114,128,0.1);color:var(--text-muted);}
-        .elapsed {font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);}
-        .expand-icon {color:var(--text-muted);transition:transform 0.3s ease;font-size:0.8rem;flex-shrink:0;}
+        .elapsed {font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);}
+        .expand-icon {color:var(--text-muted);transition:transform 0.3s ease;font-size:0.75rem;}
         .endpoint.expanded .expand-icon {transform:rotate(180deg);}
         .endpoint-details {max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
         .endpoint.expanded .endpoint-details {max-height:2000px;}
         .details-content {padding:0 1.25rem 1.25rem;border-top:1px solid var(--border);}
         .detail-section {margin-top:1rem;}
         .detail-section h4 {font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem;font-weight:600;}
-        .code-block {background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:#e6edf3;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto;line-height:1.5;}
+        .code-block {background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#e6edf3;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto;line-height:1.5;}
         .analysis-box {background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:1rem;margin-top:0.5rem;}
         .analysis-box.expected-fail {background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);}
         .analysis-box h4 {color:var(--accent-amber);font-size:0.85rem;margin-bottom:0.5rem;text-transform:none;letter-spacing:0;}
         .analysis-box.expected-fail h4 {color:var(--accent-purple);}
         .analysis-box p {color:var(--text-secondary);font-size:0.8rem;margin-bottom:0.25rem;}
+
+        /* Filters */
         .filter-bar {display:flex;gap:0.75rem;margin-bottom:2rem;flex-wrap:wrap;}
         .filter-btn {padding:0.5rem 1.25rem;border-radius:100px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.2s ease;font-family:'Inter',sans-serif;}
         .filter-btn:hover {border-color:var(--accent-blue);color:var(--accent-blue);}
         .filter-btn.active {background:var(--accent-blue-bg);color:var(--accent-blue);border-color:var(--accent-blue);}
-        .spec-analysis {margin-bottom:3rem;}
+
+        /* Spec Analysis */
+        .spec-analysis {margin-bottom:2.5rem;}
         .spec-panel {background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.75rem;overflow:hidden;cursor:pointer;transition:all 0.2s ease;}
         .spec-panel:hover {border-color:rgba(59,130,246,0.3);}
-        .spec-panel-header {display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;font-weight:500;}
-        .spec-panel-content {max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
-        .spec-panel.expanded .spec-panel-content {max-height:2000px;}
+        .spec-panel-header {display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;font-weight:500;gap:1rem;}
+        .spec-panel-content {max-height:0;overflow:hidden;transition:max-height 0.4s ease;padding:0 1.25rem;}
+        .spec-panel.expanded .spec-panel-content {max-height:2000px;padding:0 1.25rem 1.25rem;}
         .spec-panel.expanded .expand-icon {transform:rotate(180deg);}
-        .spec-panel-content {padding:0 1.25rem;}
-        .spec-panel.expanded .spec-panel-content {padding:0 1.25rem 1.25rem;}
-        .spec-badge {padding:0.25rem 0.75rem;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;}
+        .spec-badge {padding:0.25rem 0.75rem;border-radius:100px;font-size:0.7rem;font-weight:700;text-transform:uppercase;white-space:nowrap;}
         .spec-table {width:100%;border-collapse:collapse;margin-top:0.5rem;font-size:0.8rem;}
         .spec-table th {text-align:left;padding:0.5rem;color:var(--text-muted);border-bottom:1px solid var(--border);font-weight:600;text-transform:uppercase;font-size:0.7rem;letter-spacing:0.05em;}
         .spec-table td {padding:0.5rem;border-bottom:1px solid rgba(42,49,85,0.5);color:var(--text-secondary);}
         .spec-table code {background:rgba(59,130,246,0.1);color:var(--accent-blue);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.75rem;}
         .footer {text-align:center;padding:2rem;color:var(--text-muted);font-size:0.8rem;border-top:1px solid var(--border);margin-top:2rem;}
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .summary {grid-template-columns:repeat(2,1fr);}
-            .endpoint-header {flex-wrap:wrap;gap:0.5rem;}
-            .endpoint-path {min-width:100%;order:10;font-size:0.8rem;}
-            .endpoint-desc {max-width:100%;text-align:left;order:11;font-size:0.75rem;}
-            .header h1 {font-size:1.8rem;}
-            .spec-panel-header {flex-wrap:wrap;gap:0.5rem;}
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .container {padding:1.5rem;}
+            .summary {grid-template-columns:repeat(5,1fr);gap:0.75rem;}
+            .summary-card .number {font-size:1.8rem;}
+            .summary-card .label {font-size:0.65rem;}
+            .endpoint-header {grid-template-columns:auto auto 1fr auto auto;gap:0.5rem;padding:0.75rem 1rem;}
+            .endpoint-desc {display:none;}
         }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {padding:1rem;}
+            .header h1 {font-size:1.8rem;}
+            .summary {grid-template-columns:repeat(3,1fr);gap:0.75rem;}
+            .summary-card {padding:1rem 0.5rem;}
+            .summary-card .number {font-size:1.6rem;}
+            .endpoint-header {grid-template-columns:auto auto 1fr auto auto;gap:0.5rem;padding:0.75rem;}
+            .endpoint-desc {display:none;}
+            .spec-panel-header {flex-wrap:wrap;gap:0.5rem;font-size:0.85rem;}
+            .spec-table {font-size:0.7rem;}
+            .filter-btn {padding:0.4rem 0.85rem;font-size:0.78rem;}
+            .category-header h2 {font-size:1.1rem;}
+        }
+
+        /* Small Mobile */
         @media (max-width: 480px) {
             .summary {grid-template-columns:repeat(2,1fr);}
-            .summary-card .number {font-size:1.8rem;}
-            .container {padding:1rem;}
-            .endpoint-meta {gap:0.5rem;}
+            .summary-card .number {font-size:1.5rem;}
+            .endpoint-header {grid-template-columns:auto 1fr auto auto;gap:0.4rem;padding:0.6rem;}
+            .method-badge {display:none;}
+            .endpoint-path {font-size:0.75rem;}
         }
     </style>
 </head>
@@ -112,7 +138,7 @@
         <div class="header">
             <h1>🎯 OkeyAdvert API Test Raporu</h1>
             <p class="subtitle">Tüm endpoint'lerin otomatik test sonuçları</p>
-            <p class="test-date">Test tarihi: 04 April 2026, 00:25:23</p>
+            <p class="test-date">Test tarihi: 04 April 2026, 00:40:55</p>
             <p class="test-date">Base URL: https://okey-api.kolaytech.com</p>
         </div>
 
@@ -191,7 +217,7 @@
                     <span class="endpoint-desc">API dökümantasyonu erişimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">541ms</span>
+                        <span class="elapsed">876ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -212,7 +238,7 @@
                     <span class="endpoint-desc">Yeni kullanıcı kaydı</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">405ms</span>
+                        <span class="elapsed">409ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -235,14 +261,14 @@
                     <span class="endpoint-desc">Kullanıcı girişi (phone + password)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">634ms</span>
+                        <span class="elapsed">617ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   "phone": "+905551234567",
   "password": "Test123456!"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI1ZDBlM2Y1NS05MjBlLTQ1M2ItOTg3MS00YzM3NThlZjU0ZjQiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NTEwNCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.IgEC_FmN-HSbXxcAL5t0BNjUgP5G0JxIBrsEnYK4MyM","refreshToken":"c5e9e88d6959488fbd6a1474987ae8ce1f2c7d92d97c411dbc1882f945476ce5","phoneVerified":false,"profileCompleted":false}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJmNzUyNzQzOS00ODBiLTQyYjctYjM5MC1mMmM3ZThjY2NkZGQiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzNywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.uEpWVkcuUy8siH1qrjCCwFb1zDcXYI5X0uypNnQHnOM","refreshToken":"5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6","phoneVerified":false,"profileCompleted":false}</div></div></div></div>
             </div><div class="endpoint" data-success="true" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -252,7 +278,7 @@
                     <span class="endpoint-desc">SMS ile OTP kodu gönderme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">389ms</span>
+                        <span class="elapsed">625ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -268,7 +294,7 @@
                     <span class="endpoint-desc">OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">779ms</span>
+                        <span class="elapsed">640ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -289,13 +315,13 @@
                     <span class="endpoint-desc">Access token yenileme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">667ms</span>
+                        <span class="elapsed">380ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
-  "refreshToken": "c5e9e88d6959488fbd6a1474987ae8ce1f2c7d92d97c411dbc1882f945476ce5"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJlZWMzNmZmMS1lMjQwLTRlMjQtYTUxMi1mNTJkZWNhOWQ4OTciLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NTEwNiwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.jIQPxJxpOfcpLLJUDeW4p1L8QquYFD7AhzwRpHv84xo","refreshToken":"20de1f1120ba4ea6861be23dbd514104590ee6f600c74c3c87f5930af54eab66"}</div></div></div></div>
+  "refreshToken": "5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6"
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI4NGExYTJiMS05MWZlLTQyYTMtYTEzMS1hYjQyNDU1YTU5Y2EiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzOCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.t0V0cJnJKzdmp2aVQjp05hbOIFDnUP5ybb_dIPSTbtE","refreshToken":"72a6c005ba394064a378798513bbb350278d7a638f404537baa4f210a6dcb1d8"}</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
@@ -312,7 +338,7 @@
                     <span class="endpoint-desc">Mevcut kullanıcı profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">745ms</span>
+                        <span class="elapsed">288ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -326,7 +352,7 @@
                     <span class="endpoint-desc">Profil güncelleme + onboarding</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">400ms</span>
+                        <span class="elapsed">373ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -347,7 +373,7 @@
                     <span class="endpoint-desc">Başka kullanıcının public profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">628ms</span>
+                        <span class="elapsed">395ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -361,7 +387,7 @@
                     <span class="endpoint-desc">Email OTP gönderimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">631ms</span>
+                        <span class="elapsed">404ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -381,7 +407,7 @@
                     <span class="endpoint-desc">Email OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">376ms</span>
+                        <span class="elapsed">321ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -402,7 +428,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi ilanları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">699ms</span>
+                        <span class="elapsed">300ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -420,7 +446,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi başvuruları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">410ms</span>
+                        <span class="elapsed">281ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -434,7 +460,7 @@
                     <span class="endpoint-desc">Maç geçmişi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">309ms</span>
+                        <span class="elapsed">388ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -469,7 +495,7 @@
                     <span class="endpoint-desc">Dosya yükleme (multipart)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">616ms</span>
+                        <span class="elapsed">708ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -496,7 +522,7 @@
                     <span class="endpoint-desc">Tüm ilanları listele (sayfalama)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">318ms</span>
+                        <span class="elapsed">311ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -514,7 +540,7 @@
                     <span class="endpoint-desc">Filtrelenmiş ilan listesi (City, Level)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">386ms</span>
+                        <span class="elapsed">290ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -528,7 +554,7 @@
                     <span class="endpoint-desc">Konum bazlı ilan arama (Lat, Lng, Radius)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">286ms</span>
+                        <span class="elapsed">298ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -546,7 +572,7 @@
                     <span class="endpoint-desc">Yeni ilan oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">330ms</span>
+                        <span class="elapsed">316ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -577,7 +603,7 @@
                     <span class="endpoint-desc">ID ile ilan detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">286ms</span>
+                        <span class="elapsed">768ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -595,7 +621,7 @@
                     <span class="endpoint-desc">İlan güncelle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">378ms</span>
+                        <span class="elapsed">299ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -618,7 +644,7 @@
                     <span class="endpoint-desc">İlan iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">290ms</span>
+                        <span class="elapsed">279ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -636,7 +662,7 @@
                     <span class="endpoint-desc">İlan sil</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">648ms</span>
+                        <span class="elapsed">676ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -661,7 +687,7 @@
                     <span class="endpoint-desc">İlana başvuru yap</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">385ms</span>
+                        <span class="elapsed">628ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -682,7 +708,7 @@
                     <span class="endpoint-desc">İlanın başvurularını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">647ms</span>
+                        <span class="elapsed">295ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -700,7 +726,7 @@
                     <span class="endpoint-desc">Başvuruyu kabul et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">288ms</span>
+                        <span class="elapsed">665ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -718,7 +744,7 @@
                     <span class="endpoint-desc">Başvuruyu reddet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">290ms</span>
+                        <span class="elapsed">278ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -736,7 +762,7 @@
                     <span class="endpoint-desc">Başvuruyu sil/geri çek</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">686ms</span>
+                        <span class="elapsed">634ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -761,7 +787,7 @@
                     <span class="endpoint-desc">Bildirimleri listele (paginated)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">293ms</span>
+                        <span class="elapsed">290ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -775,7 +801,7 @@
                     <span class="endpoint-desc">Okunmamış bildirimleri listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">283ms</span>
+                        <span class="elapsed">648ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -789,7 +815,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaydet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">682ms</span>
+                        <span class="elapsed">287ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -806,7 +832,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaldır</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">288ms</span>
+                        <span class="elapsed">280ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -822,7 +848,7 @@
                     <span class="endpoint-desc">Bildirimleri okundu işaretle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">665ms</span>
+                        <span class="elapsed">304ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -847,7 +873,7 @@
                     <span class="endpoint-desc">Ödeme işlemi başlat</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">703ms</span>
+                        <span class="elapsed">296ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -862,7 +888,7 @@
   "expiryMonth": "12",
   "expiryYear": "2027",
   "cvv": "123"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"success":true,"transactionId":"7594cb5b0e674ef1b37eec80416b8717","errorMessage":null,"status":"completed","requires3DSecure":false,"threeDSecureUrl":null,"threeDSecureHtml":null}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"success":true,"transactionId":"b8cd21f36e344d6ea0e5e634c26305dd","errorMessage":null,"status":"completed","requires3DSecure":false,"threeDSecureUrl":null,"threeDSecureHtml":null}</div></div></div></div>
             </div><div class="endpoint expected-fail-row" data-success="false" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status fail">⚠️</div>
@@ -872,7 +898,7 @@
                     <span class="endpoint-desc">3D Secure callback işlemi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">295ms</span>
+                        <span class="elapsed">374ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -894,7 +920,7 @@
                     <span class="endpoint-desc">3D Secure doğrulama (mock)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">387ms</span>
+                        <span class="elapsed">281ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -962,7 +988,7 @@
                     <span class="endpoint-desc">Oyuncu değerlendirmesi oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">287ms</span>
+                        <span class="elapsed">297ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -985,7 +1011,7 @@
                     <span class="endpoint-desc">Kullanıcının aldığı değerlendirmeler</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">306ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1006,7 +1032,7 @@
                     <span class="endpoint-desc">Maç odası detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">282ms</span>
+                        <span class="elapsed">493ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1024,7 +1050,7 @@
                     <span class="endpoint-desc">Maça katılım onayla</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">296ms</span>
+                        <span class="elapsed">644ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1049,7 +1075,7 @@
                     <span class="endpoint-desc">Abonelik planlarını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">303ms</span>
+                        <span class="elapsed">391ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1063,7 +1089,7 @@
                     <span class="endpoint-desc">Mevcut aboneliğini getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">617ms</span>
+                        <span class="elapsed">634ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1077,7 +1103,7 @@
                     <span class="endpoint-desc">Abonelik oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">304ms</span>
+                        <span class="elapsed">279ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1099,7 +1125,7 @@
                     <span class="endpoint-desc">Aboneliği iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">305ms</span>
+                        <span class="elapsed">678ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1117,7 +1143,7 @@
                     <span class="endpoint-desc">İlanı öne çıkar (boost)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">636ms</span>
+                        <span class="elapsed">393ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>

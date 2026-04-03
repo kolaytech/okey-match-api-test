@@ -9,7 +9,7 @@
     "requiresAuth": false,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 541,
+    "elapsedMs": 876,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -23,7 +23,7 @@
     "requiresAuth": false,
     "requestBody": "{\n  \"phone\": \"+905551234567\",\n  \"password\": \"Test123456!\",\n  \"fullName\": \"API Test Kullanıcı\",\n  \"email\": \"apitest@okeymatch.com\"\n}",
     "isSuccess": false,
-    "elapsedMs": 405,
+    "elapsedMs": 409,
     "expectedFail": true,
     "expectedFailReason": "Kullanıcı daha önce kayıt olmuş olabilir"
   },
@@ -32,12 +32,12 @@
     "method": "POST",
     "endpoint": "/api/Auth/login",
     "statusCode": 200,
-    "responseBody": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI1ZDBlM2Y1NS05MjBlLTQ1M2ItOTg3MS00YzM3NThlZjU0ZjQiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NTEwNCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.IgEC_FmN-HSbXxcAL5t0BNjUgP5G0JxIBrsEnYK4MyM\",\"refreshToken\":\"c5e9e88d6959488fbd6a1474987ae8ce1f2c7d92d97c411dbc1882f945476ce5\",\"phoneVerified\":false,\"profileCompleted\":false}",
+    "responseBody": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJmNzUyNzQzOS00ODBiLTQyYjctYjM5MC1mMmM3ZThjY2NkZGQiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzNywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.uEpWVkcuUy8siH1qrjCCwFb1zDcXYI5X0uypNnQHnOM\",\"refreshToken\":\"5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6\",\"phoneVerified\":false,\"profileCompleted\":false}",
     "description": "Kullanıcı girişi (phone + password)",
     "requiresAuth": false,
     "requestBody": "{\n  \"phone\": \"+905551234567\",\n  \"password\": \"Test123456!\"\n}",
     "isSuccess": true,
-    "elapsedMs": 634,
+    "elapsedMs": 617,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -51,7 +51,7 @@
     "requiresAuth": false,
     "requestBody": "{\n  \"phone\": \"+905551234567\"\n}",
     "isSuccess": true,
-    "elapsedMs": 389,
+    "elapsedMs": 625,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -65,7 +65,7 @@
     "requiresAuth": false,
     "requestBody": "{\n  \"phone\": \"+905551234567\",\n  \"code\": \"123456\"\n}",
     "isSuccess": false,
-    "elapsedMs": 779,
+    "elapsedMs": 640,
     "expectedFail": true,
     "expectedFailReason": "Test OTP kodu geçersiz olabilir"
   },
@@ -74,12 +74,12 @@
     "method": "POST",
     "endpoint": "/api/Auth/refresh",
     "statusCode": 200,
-    "responseBody": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJlZWMzNmZmMS1lMjQwLTRlMjQtYTUxMi1mNTJkZWNhOWQ4OTciLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NTEwNiwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.jIQPxJxpOfcpLLJUDeW4p1L8QquYFD7AhzwRpHv84xo\",\"refreshToken\":\"20de1f1120ba4ea6861be23dbd514104590ee6f600c74c3c87f5930af54eab66\"}",
+    "responseBody": "{\"accessToken\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI4NGExYTJiMS05MWZlLTQyYTMtYTEzMS1hYjQyNDU1YTU5Y2EiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzOCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.t0V0cJnJKzdmp2aVQjp05hbOIFDnUP5ybb_dIPSTbtE\",\"refreshToken\":\"72a6c005ba394064a378798513bbb350278d7a638f404537baa4f210a6dcb1d8\"}",
     "description": "Access token yenileme",
     "requiresAuth": false,
-    "requestBody": "{\n  \"refreshToken\": \"c5e9e88d6959488fbd6a1474987ae8ce1f2c7d92d97c411dbc1882f945476ce5\"\n}",
+    "requestBody": "{\n  \"refreshToken\": \"5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6\"\n}",
     "isSuccess": true,
-    "elapsedMs": 667,
+    "elapsedMs": 380,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -93,7 +93,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 745,
+    "elapsedMs": 288,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -107,7 +107,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"fullName\": \"API Test Kullanıcı\",\n  \"nickname\": \"api_tester\",\n  \"city\": \"İstanbul\",\n  \"district\": \"Kadıköy\",\n  \"age\": 25,\n  \"level\": \"mid\"\n}",
     "isSuccess": true,
-    "elapsedMs": 400,
+    "elapsedMs": 373,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -121,7 +121,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 628,
+    "elapsedMs": 395,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -135,7 +135,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"email\": \"apitest@okeymatch.com\"\n}",
     "isSuccess": false,
-    "elapsedMs": 631,
+    "elapsedMs": 404,
     "expectedFail": true,
     "expectedFailReason": "Backend email service henüz tam konfigüre edilmemiş olabilir"
   },
@@ -149,7 +149,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"email\": \"apitest@okeymatch.com\",\n  \"code\": \"1234\"\n}",
     "isSuccess": false,
-    "elapsedMs": 376,
+    "elapsedMs": 321,
     "expectedFail": true,
     "expectedFailReason": "Test OTP kodu geçersiz olabilir"
   },
@@ -163,7 +163,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 699,
+    "elapsedMs": 300,
     "expectedFail": true,
     "expectedFailReason": "Backend'de bilinen bir serialization sorunu olabilir"
   },
@@ -177,7 +177,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 410,
+    "elapsedMs": 281,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -191,7 +191,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 309,
+    "elapsedMs": 388,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -205,7 +205,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"file\": \"test.png (1x1 PNG)\"\n}",
     "isSuccess": false,
-    "elapsedMs": 616,
+    "elapsedMs": 708,
     "expectedFail": true,
     "expectedFailReason": "Backend AWS S3 konfigürasyonu henüz tamamlanmamış olabilir"
   },
@@ -219,7 +219,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 318,
+    "elapsedMs": 311,
     "expectedFail": true,
     "expectedFailReason": "Backend'de bilinen bir serialization sorunu olabilir"
   },
@@ -233,7 +233,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 386,
+    "elapsedMs": 290,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -247,7 +247,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 286,
+    "elapsedMs": 298,
     "expectedFail": true,
     "expectedFailReason": "Backend'de bilinen bir serialization sorunu olabilir"
   },
@@ -261,7 +261,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"title\": \"Test Okey Partisi\",\n  \"description\": \"API testi için oluşturulmuş ilan\",\n  \"city\": \"İstanbul\",\n  \"district\": \"Kadıköy\",\n  \"lat\": 40.9833,\n  \"lng\": 29.0167,\n  \"placeName\": \"Test Kahvehane\",\n  \"dateTime\": \"2026-05-10T14:00:00Z\",\n  \"playerNeeded\": 3,\n  \"level\": \"mid\",\n  \"minAge\": 18,\n  \"maxAge\": 50\n}",
     "isSuccess": false,
-    "elapsedMs": 330,
+    "elapsedMs": 316,
     "expectedFail": true,
     "expectedFailReason": "Backend entity save hatası — DB migration sorunu olabilir"
   },
@@ -275,7 +275,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 286,
+    "elapsedMs": 768,
     "expectedFail": true,
     "expectedFailReason": "İlan oluşturulamadığı için dummy ID ile test edildi"
   },
@@ -289,7 +289,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"title\": \"Güncellenmiş Test İlanı\",\n  \"description\": \"Güncellenmiş açıklama\",\n  \"playerNeeded\": 2,\n  \"level\": \"advanced\"\n}",
     "isSuccess": false,
-    "elapsedMs": 378,
+    "elapsedMs": 299,
     "expectedFail": true,
     "expectedFailReason": "İlan oluşturulamadığı için dummy ID ile test edildi"
   },
@@ -303,7 +303,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"joinedAsGroupCount\": 1,\n  \"message\": \"Ben de oynamak istiyorum!\"\n}",
     "isSuccess": false,
-    "elapsedMs": 385,
+    "elapsedMs": 628,
     "expectedFail": true,
     "expectedFailReason": "Tek kullanıcı testi — kendi ilanına başvuru yapılamaz"
   },
@@ -317,7 +317,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 647,
+    "elapsedMs": 295,
     "expectedFail": true,
     "expectedFailReason": "İlan oluşturulamadığı için dummy ID ile test edildi"
   },
@@ -331,7 +331,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 288,
+    "elapsedMs": 665,
     "expectedFail": true,
     "expectedFailReason": "Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)"
   },
@@ -345,7 +345,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 290,
+    "elapsedMs": 278,
     "expectedFail": true,
     "expectedFailReason": "Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)"
   },
@@ -359,7 +359,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 686,
+    "elapsedMs": 634,
     "expectedFail": true,
     "expectedFailReason": "Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)"
   },
@@ -373,7 +373,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 290,
+    "elapsedMs": 279,
     "expectedFail": true,
     "expectedFailReason": "İlan oluşturulamadığı için dummy ID ile test edildi"
   },
@@ -387,7 +387,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 648,
+    "elapsedMs": 676,
     "expectedFail": true,
     "expectedFailReason": "İlan oluşturulamadığı için dummy ID ile test edildi"
   },
@@ -401,7 +401,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 293,
+    "elapsedMs": 290,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -415,7 +415,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 283,
+    "elapsedMs": 648,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -429,7 +429,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"token\": \"test-fcm-token-12345\",\n  \"platform\": \"android\"\n}",
     "isSuccess": true,
-    "elapsedMs": 682,
+    "elapsedMs": 287,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -443,7 +443,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"token\": \"test-fcm-token-12345\"\n}",
     "isSuccess": true,
-    "elapsedMs": 288,
+    "elapsedMs": 280,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -457,7 +457,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"notificationIds\": [\n    \"00000000-0000-0000-0000-000000000001\"\n  ]\n}",
     "isSuccess": true,
-    "elapsedMs": 665,
+    "elapsedMs": 304,
     "expectedFail": false,
     "expectedFailReason": "Dummy notification ID kullanıldı"
   },
@@ -466,12 +466,12 @@
     "method": "POST",
     "endpoint": "/api/Payments/process",
     "statusCode": 200,
-    "responseBody": "{\"success\":true,\"transactionId\":\"7594cb5b0e674ef1b37eec80416b8717\",\"errorMessage\":null,\"status\":\"completed\",\"requires3DSecure\":false,\"threeDSecureUrl\":null,\"threeDSecureHtml\":null}",
+    "responseBody": "{\"success\":true,\"transactionId\":\"b8cd21f36e344d6ea0e5e634c26305dd\",\"errorMessage\":null,\"status\":\"completed\",\"requires3DSecure\":false,\"threeDSecureUrl\":null,\"threeDSecureHtml\":null}",
     "description": "Ödeme işlemi başlat",
     "requiresAuth": true,
     "requestBody": "{\n  \"amount\": 99.99,\n  \"currency\": \"TRY\",\n  \"paymentMethod\": \"credit_card\",\n  \"description\": \"Test ödeme\",\n  \"require3DSecure\": false,\n  \"cardHolderName\": \"Test User\",\n  \"cardNumber\": \"4111111111111111\",\n  \"expiryMonth\": \"12\",\n  \"expiryYear\": \"2027\",\n  \"cvv\": \"123\"\n}",
     "isSuccess": true,
-    "elapsedMs": 703,
+    "elapsedMs": 296,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -485,7 +485,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"transactionId\": \"test-tx-id\",\n  \"success\": true,\n  \"threeDSecureResult\": \"OK\"\n}",
     "isSuccess": false,
-    "elapsedMs": 295,
+    "elapsedMs": 374,
     "expectedFail": true,
     "expectedFailReason": "Dummy transaction ID kullanıldı — gerçek ödeme işlemi yok"
   },
@@ -499,7 +499,7 @@
     "requiresAuth": false,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 387,
+    "elapsedMs": 281,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -513,7 +513,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"roomId\": \"00000000-0000-0000-0000-000000000001\",\n  \"toUserId\": \"00000000-0000-0000-0000-000000000002\",\n  \"score\": 5,\n  \"comment\": \"Harika bir oyuncu!\"\n}",
     "isSuccess": false,
-    "elapsedMs": 287,
+    "elapsedMs": 297,
     "expectedFail": true,
     "expectedFailReason": "Gerçek room/user ID gerekli"
   },
@@ -527,7 +527,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 306,
+    "elapsedMs": 282,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -541,7 +541,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 282,
+    "elapsedMs": 493,
     "expectedFail": true,
     "expectedFailReason": "Gerçek room ID gerekli — henüz maç oluşturulmadı"
   },
@@ -555,7 +555,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 296,
+    "elapsedMs": 644,
     "expectedFail": true,
     "expectedFailReason": "Gerçek room ID gerekli — henüz maç oluşturulmadı"
   },
@@ -569,7 +569,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 303,
+    "elapsedMs": 391,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -583,7 +583,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": true,
-    "elapsedMs": 617,
+    "elapsedMs": 634,
     "expectedFail": false,
     "expectedFailReason": ""
   },
@@ -597,7 +597,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"planId\": \"00000000-0000-0000-0000-000000000001\",\n  \"paymentReceipt\": \"test-receipt-123\",\n  \"platform\": \"ios\"\n}",
     "isSuccess": false,
-    "elapsedMs": 304,
+    "elapsedMs": 279,
     "expectedFail": true,
     "expectedFailReason": "Geçersiz plan ID kullanıldı"
   },
@@ -611,7 +611,7 @@
     "requiresAuth": true,
     "requestBody": null,
     "isSuccess": false,
-    "elapsedMs": 305,
+    "elapsedMs": 678,
     "expectedFail": true,
     "expectedFailReason": "Aktif abonelik yok"
   },
@@ -625,7 +625,7 @@
     "requiresAuth": true,
     "requestBody": "{\n  \"durationHours\": 24\n}",
     "isSuccess": false,
-    "elapsedMs": 636,
+    "elapsedMs": 393,
     "expectedFail": true,
     "expectedFailReason": "Aktif abonelik veya boost hakkı yok"
   },
