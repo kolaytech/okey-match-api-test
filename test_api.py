@@ -576,13 +576,13 @@ def generate_html_report():
         * {{margin:0;padding:0;box-sizing:border-box;}}
         body {{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;line-height:1.6;}}
         .background-pattern {{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(59,130,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(139,92,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 0%,rgba(16,185,129,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}}
-        .container {{max-width:1200px;margin:0 auto;padding:2rem;position:relative;z-index:1;}}
+        .container {{max-width:1400px;margin:0 auto;padding:2rem 3rem;position:relative;z-index:1;}}
         .header {{text-align:center;margin-bottom:3rem;padding:2rem 0;}}
         .header h1 {{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.5rem;letter-spacing:-0.02em;}}
         .header .subtitle {{color:var(--text-secondary);font-size:1rem;}}
         .header .test-date {{color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;font-family:'JetBrains Mono',monospace;}}
         .summary {{display:grid;grid-template-columns:repeat(5,1fr);gap:1.25rem;margin-bottom:3rem;}}
-        .summary-card {{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}}
+        .summary-card {{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.25rem 0.75rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:visible;}}
         .summary-card::before {{content:'';position:absolute;top:0;left:0;right:0;height:3px;}}
         .summary-card.total::before {{background:linear-gradient(90deg,#3b82f6,#8b5cf6);}}
         .summary-card.success::before {{background:linear-gradient(90deg,#10b981,#34d399);}}
@@ -596,7 +596,7 @@ def generate_html_report():
         .summary-card.failed .number {{color:var(--accent-red);}}
         .summary-card.rate .number {{color:var(--accent-amber);}}
         .summary-card.expected .number {{color:var(--accent-purple);}}
-        .summary-card .label {{color:var(--text-secondary);font-size:0.8rem;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;}}
+        .summary-card .label {{color:var(--text-secondary);font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;white-space:nowrap;}}
         .category {{margin-bottom:2.5rem;}}
         .category-header {{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);}}
         .category-icon {{font-size:1.5rem;}}
@@ -683,11 +683,11 @@ def generate_html_report():
         </div>
 
         <div class="summary">
-            <div class="summary-card total"><div class="number">{total}</div><div class="label">Toplam Endpoint</div></div>
+            <div class="summary-card total"><div class="number">{total}</div><div class="label">Toplam</div></div>
             <div class="summary-card success"><div class="number">{success}</div><div class="label">Başarılı ✅</div></div>
-            <div class="summary-card failed"><div class="number">{real_fails}</div><div class="label">Gerçek Hata ❌</div></div>
+            <div class="summary-card failed"><div class="number">{real_fails}</div><div class="label">Hata ❌</div></div>
             <div class="summary-card expected"><div class="number">{expected_fails}</div><div class="label">Beklenen ⚠️</div></div>
-            <div class="summary-card rate"><div class="number">{rate}%</div><div class="label">Başarı Oranı</div></div>
+            <div class="summary-card rate"><div class="number">{rate}%</div><div class="label">Başarı</div></div>
         </div>
 
         {spec_html}
