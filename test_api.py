@@ -11,6 +11,7 @@ import urllib.error
 import ssl
 import time
 import os
+import html as html_module
 from datetime import datetime
 
 BASE_URL = "https://okey-api.kolaytech.com"
@@ -462,8 +463,10 @@ def generate_html_report():
 
             details_html = ""
             if item['requestBody']:
-                details_html += f'<div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{item["requestBody"]}</div></div>'
-            details_html += f'<div class="detail-section"><h4>📥 Yanıt (Response) — HTTP {item["statusCode"]}</h4><div class="code-block">{item["responseBody"]}</div></div>'
+                escaped_req = html_module.escape(str(item['requestBody']))
+                details_html += f'<div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{escaped_req}</div></div>'
+            escaped_resp = html_module.escape(str(item['responseBody']))
+            details_html += f'<div class="detail-section"><h4>📥 Yanıt (Response) — HTTP {item["statusCode"]}</h4><div class="code-block">{escaped_resp}</div></div>'
 
             if not item['isSuccess'] and item.get('expectedFail'):
                 details_html += f'''<div class="detail-section"><div class="analysis-box expected-fail">
