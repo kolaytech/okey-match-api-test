@@ -48,14 +48,14 @@
         .endpoint {background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.6rem;overflow:hidden;transition:all 0.2s ease;}
         .endpoint:hover {border-color:rgba(59,130,246,0.3);}
         .endpoint.expected-fail-row {border-left:3px solid var(--accent-purple);}
-        .endpoint-header {display:grid;grid-template-columns:auto auto 1fr auto auto auto;align-items:center;padding:0.85rem 1.25rem;cursor:pointer;gap:0.75rem;user-select:none;}
-        .endpoint-status {width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;}
+        .endpoint-header {display:flex;align-items:center;padding:0.85rem 1.25rem;cursor:pointer;gap:0.75rem;user-select:none;}
+        .endpoint-status {width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}
         .endpoint-status.success {background:var(--accent-green-bg);}
         .endpoint-status.fail {background:var(--accent-red-bg);}
-        .method-badge {padding:0.2rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:55px;text-align:center;}
-        .endpoint-path {font-family:'JetBrains Mono',monospace;font-size:0.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-        .endpoint-desc {color:var(--text-secondary);font-size:0.78rem;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;}
-        .endpoint-meta {display:flex;align-items:center;gap:0.5rem;}
+        .method-badge {padding:0.2rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:55px;text-align:center;flex-shrink:0;}
+        .endpoint-path {font-family:'JetBrains Mono',monospace;font-size:0.82rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+        .endpoint-desc {color:var(--text-secondary);font-size:0.78rem;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;text-align:right;}
+        .endpoint-meta {display:flex;align-items:center;gap:0.5rem;flex-shrink:0;}
         .status-code {font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;padding:0.15rem 0.45rem;border-radius:6px;}
         .status-code.s2xx {background:var(--accent-green-bg);color:var(--accent-green);}
         .status-code.s4xx {background:var(--accent-red-bg);color:var(--accent-red);}
@@ -103,7 +103,6 @@
             .summary {grid-template-columns:repeat(5,1fr);gap:0.75rem;}
             .summary-card .number {font-size:1.8rem;}
             .summary-card .label {font-size:0.65rem;}
-            .endpoint-header {grid-template-columns:auto auto 1fr auto auto;gap:0.5rem;padding:0.75rem 1rem;}
             .endpoint-desc {display:none;}
         }
 
@@ -114,7 +113,6 @@
             .summary {grid-template-columns:repeat(3,1fr);gap:0.75rem;}
             .summary-card {padding:1rem 0.5rem;}
             .summary-card .number {font-size:1.6rem;}
-            .endpoint-header {grid-template-columns:auto auto 1fr auto auto;gap:0.5rem;padding:0.75rem;}
             .endpoint-desc {display:none;}
             .spec-panel-header {flex-wrap:wrap;gap:0.5rem;font-size:0.85rem;}
             .spec-table {font-size:0.7rem;}
@@ -126,7 +124,6 @@
         @media (max-width: 480px) {
             .summary {grid-template-columns:repeat(2,1fr);}
             .summary-card .number {font-size:1.5rem;}
-            .endpoint-header {grid-template-columns:auto 1fr auto auto;gap:0.4rem;padding:0.6rem;}
             .method-badge {display:none;}
             .endpoint-path {font-size:0.75rem;}
         }
@@ -138,7 +135,7 @@
         <div class="header">
             <h1>🎯 OkeyAdvert API Test Raporu</h1>
             <p class="subtitle">Tüm endpoint'lerin otomatik test sonuçları</p>
-            <p class="test-date">Test tarihi: 04 April 2026, 00:40:55</p>
+            <p class="test-date">Test tarihi: 04 April 2026, 00:47:29</p>
             <p class="test-date">Base URL: https://okey-api.kolaytech.com</p>
         </div>
 
@@ -196,10 +193,10 @@
     </div>
 
         <div class="filter-bar">
-            <button class="filter-btn active" onclick="filterResults('all')">Tümü (46)</button>
-            <button class="filter-btn" onclick="filterResults('success')">✅ Başarılı (21)</button>
-            <button class="filter-btn" onclick="filterResults('fail')">❌ Başarısız (25)</button>
-            <button class="filter-btn" onclick="filterResults('expected')">⚠️ Beklenen (25)</button>
+            <button class="filter-btn active" onclick="filterResults('all', this)">Tümü (46)</button>
+            <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı (21)</button>
+            <button class="filter-btn" onclick="filterResults('fail', this)">❌ Başarısız (25)</button>
+            <button class="filter-btn" onclick="filterResults('expected', this)">⚠️ Beklenen (25)</button>
         </div>
 
         <div class="category">
@@ -217,7 +214,7 @@
                     <span class="endpoint-desc">API dökümantasyonu erişimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">876ms</span>
+                        <span class="elapsed">516ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -238,7 +235,7 @@
                     <span class="endpoint-desc">Yeni kullanıcı kaydı</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">409ms</span>
+                        <span class="elapsed">459ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -261,14 +258,14 @@
                     <span class="endpoint-desc">Kullanıcı girişi (phone + password)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">617ms</span>
+                        <span class="elapsed">603ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   "phone": "+905551234567",
   "password": "Test123456!"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJmNzUyNzQzOS00ODBiLTQyYjctYjM5MC1mMmM3ZThjY2NkZGQiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzNywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.uEpWVkcuUy8siH1qrjCCwFb1zDcXYI5X0uypNnQHnOM","refreshToken":"5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6","phoneVerified":false,"profileCompleted":false}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJmY2Y2NGE1OC00OTNmLTRlMjctODU2NC1lNmNkZTZkZjk0MmIiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjQzMCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.IrNI5Mrq2yplqP27VdLhrNGQ-artkDAHmKasmr9Co8s","refreshToken":"60f9398e5f104756892145111f9d600753d948a2bc8944e0aaa1c3d698a5182c","phoneVerified":false,"profileCompleted":false}</div></div></div></div>
             </div><div class="endpoint" data-success="true" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -278,7 +275,7 @@
                     <span class="endpoint-desc">SMS ile OTP kodu gönderme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">625ms</span>
+                        <span class="elapsed">371ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -294,7 +291,7 @@
                     <span class="endpoint-desc">OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">640ms</span>
+                        <span class="elapsed">401ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -315,13 +312,13 @@
                     <span class="endpoint-desc">Access token yenileme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">380ms</span>
+                        <span class="elapsed">297ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
-  "refreshToken": "5498bd4abe264c0bb1cdf3bf89b0c1da34cb3d9ab0d841998c318b73168a64c6"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI4NGExYTJiMS05MWZlLTQyYTMtYTEzMS1hYjQyNDU1YTU5Y2EiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjAzOCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.t0V0cJnJKzdmp2aVQjp05hbOIFDnUP5ybb_dIPSTbtE","refreshToken":"72a6c005ba394064a378798513bbb350278d7a638f404537baa4f210a6dcb1d8"}</div></div></div></div>
+  "refreshToken": "60f9398e5f104756892145111f9d600753d948a2bc8944e0aaa1c3d698a5182c"
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJiODJkNmYyMS01NmRjLTRhNmMtYThhNC1jNzE5NzI3OGE2NWEiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI1NjQzMSwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.HP5XncXtvLwJQd5Uh06zprbNyXOIrnRsBJOEILKNd6U","refreshToken":"f5716bc8962342199ca3ab085efad9c784997a45087d488883c052a0ab1c90bc"}</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
@@ -338,7 +335,7 @@
                     <span class="endpoint-desc">Mevcut kullanıcı profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">288ms</span>
+                        <span class="elapsed">374ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -352,7 +349,7 @@
                     <span class="endpoint-desc">Profil güncelleme + onboarding</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">373ms</span>
+                        <span class="elapsed">286ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -373,7 +370,7 @@
                     <span class="endpoint-desc">Başka kullanıcının public profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">395ms</span>
+                        <span class="elapsed">727ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -387,7 +384,7 @@
                     <span class="endpoint-desc">Email OTP gönderimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">404ms</span>
+                        <span class="elapsed">642ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -407,7 +404,7 @@
                     <span class="endpoint-desc">Email OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">321ms</span>
+                        <span class="elapsed">375ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -428,7 +425,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi ilanları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">300ms</span>
+                        <span class="elapsed">777ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -446,7 +443,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi başvuruları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">281ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -460,7 +457,7 @@
                     <span class="endpoint-desc">Maç geçmişi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">388ms</span>
+                        <span class="elapsed">655ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -495,7 +492,7 @@
                     <span class="endpoint-desc">Dosya yükleme (multipart)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">708ms</span>
+                        <span class="elapsed">770ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -522,7 +519,7 @@
                     <span class="endpoint-desc">Tüm ilanları listele (sayfalama)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">311ms</span>
+                        <span class="elapsed">636ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -540,7 +537,7 @@
                     <span class="endpoint-desc">Filtrelenmiş ilan listesi (City, Level)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">290ms</span>
+                        <span class="elapsed">306ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -554,7 +551,7 @@
                     <span class="endpoint-desc">Konum bazlı ilan arama (Lat, Lng, Radius)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">298ms</span>
+                        <span class="elapsed">665ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -572,7 +569,7 @@
                     <span class="endpoint-desc">Yeni ilan oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">316ms</span>
+                        <span class="elapsed">319ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -603,7 +600,7 @@
                     <span class="endpoint-desc">ID ile ilan detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">768ms</span>
+                        <span class="elapsed">622ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -621,7 +618,7 @@
                     <span class="endpoint-desc">İlan güncelle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">299ms</span>
+                        <span class="elapsed">298ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -644,7 +641,7 @@
                     <span class="endpoint-desc">İlan iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">279ms</span>
+                        <span class="elapsed">638ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -662,7 +659,7 @@
                     <span class="endpoint-desc">İlan sil</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">676ms</span>
+                        <span class="elapsed">300ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -687,7 +684,7 @@
                     <span class="endpoint-desc">İlana başvuru yap</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">628ms</span>
+                        <span class="elapsed">286ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -708,7 +705,7 @@
                     <span class="endpoint-desc">İlanın başvurularını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">295ms</span>
+                        <span class="elapsed">293ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -726,7 +723,7 @@
                     <span class="endpoint-desc">Başvuruyu kabul et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">665ms</span>
+                        <span class="elapsed">294ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -744,7 +741,7 @@
                     <span class="endpoint-desc">Başvuruyu reddet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">278ms</span>
+                        <span class="elapsed">618ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -762,7 +759,7 @@
                     <span class="endpoint-desc">Başvuruyu sil/geri çek</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">634ms</span>
+                        <span class="elapsed">377ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -787,7 +784,7 @@
                     <span class="endpoint-desc">Bildirimleri listele (paginated)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">290ms</span>
+                        <span class="elapsed">287ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -801,7 +798,7 @@
                     <span class="endpoint-desc">Okunmamış bildirimleri listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">648ms</span>
+                        <span class="elapsed">297ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -815,7 +812,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaydet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">287ms</span>
+                        <span class="elapsed">297ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -832,7 +829,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaldır</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">280ms</span>
+                        <span class="elapsed">653ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -848,7 +845,7 @@
                     <span class="endpoint-desc">Bildirimleri okundu işaretle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">304ms</span>
+                        <span class="elapsed">280ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -873,7 +870,7 @@
                     <span class="endpoint-desc">Ödeme işlemi başlat</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">296ms</span>
+                        <span class="elapsed">648ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -888,7 +885,7 @@
   "expiryMonth": "12",
   "expiryYear": "2027",
   "cvv": "123"
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"success":true,"transactionId":"b8cd21f36e344d6ea0e5e634c26305dd","errorMessage":null,"status":"completed","requires3DSecure":false,"threeDSecureUrl":null,"threeDSecureHtml":null}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{"success":true,"transactionId":"cfb8abb2a7dc4ff3bd89f0996be7b423","errorMessage":null,"status":"completed","requires3DSecure":false,"threeDSecureUrl":null,"threeDSecureHtml":null}</div></div></div></div>
             </div><div class="endpoint expected-fail-row" data-success="false" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status fail">⚠️</div>
@@ -898,7 +895,7 @@
                     <span class="endpoint-desc">3D Secure callback işlemi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">374ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -920,7 +917,7 @@
                     <span class="endpoint-desc">3D Secure doğrulama (mock)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">281ms</span>
+                        <span class="elapsed">642ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -988,7 +985,7 @@
                     <span class="endpoint-desc">Oyuncu değerlendirmesi oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">297ms</span>
+                        <span class="elapsed">293ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1011,7 +1008,7 @@
                     <span class="endpoint-desc">Kullanıcının aldığı değerlendirmeler</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">282ms</span>
+                        <span class="elapsed">653ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1032,7 +1029,7 @@
                     <span class="endpoint-desc">Maç odası detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">493ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1050,7 +1047,7 @@
                     <span class="endpoint-desc">Maça katılım onayla</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">644ms</span>
+                        <span class="elapsed">666ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1075,7 +1072,7 @@
                     <span class="endpoint-desc">Abonelik planlarını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">391ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1089,7 +1086,7 @@
                     <span class="endpoint-desc">Mevcut aboneliğini getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">634ms</span>
+                        <span class="elapsed">651ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1103,7 +1100,7 @@
                     <span class="endpoint-desc">Abonelik oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">279ms</span>
+                        <span class="elapsed">678ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1125,7 +1122,7 @@
                     <span class="endpoint-desc">Aboneliği iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">678ms</span>
+                        <span class="elapsed">274ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1143,7 +1140,7 @@
                     <span class="endpoint-desc">İlanı öne çıkar (boost)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">393ms</span>
+                        <span class="elapsed">387ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1164,9 +1161,9 @@
     </div>
 
     <script>
-        function filterResults(type) {
+        function filterResults(type, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
+            btn.classList.add('active');
             document.querySelectorAll('.endpoint').forEach(el => {
                 const isSuccess = el.dataset.success === 'true';
                 const isExpected = el.classList.contains('expected-fail-row');
