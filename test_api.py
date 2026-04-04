@@ -65,7 +65,8 @@ def make_request(method, path, body=None, headers=None, timeout=15, content_type
         elapsed = int((time.time() - start) * 1000)
         return 0, f"Error: {str(e)}", elapsed
 
-def add_result(category, method, endpoint, status_code, response_body, description, requires_auth, request_body=None, elapsed_ms=0, expected_fail=False, expected_fail_reason=""):
+def add_result(category, method, endpoint, status_code, response_body, description, requires_auth, request_body=None, elapsed_ms=0, fail_type=None, fail_reason=""):
+    """fail_type: None (no special handling), 'test_data', 'cascade', 'backend_bug'"""
     is_success = 200 <= status_code <= 299
     display_body = response_body
     if len(display_body) > 2000:
@@ -76,9 +77,10 @@ def add_result(category, method, endpoint, status_code, response_body, descripti
         'description': description, 'requiresAuth': requires_auth,
         'requestBody': json.dumps(request_body, indent=2, ensure_ascii=False) if request_body else None,
         'isSuccess': is_success, 'elapsedMs': elapsed_ms,
-        'expectedFail': expected_fail, 'expectedFailReason': expected_fail_reason
+        'failType': fail_type, 'failReason': fail_reason
     })
-    icon = "✅" if is_success else ("⚠️" if expected_fail else "❌")
+    icons = {'test_data': '🟡', 'cascade': '🟠', 'backend_bug': '🔴'}
+    icon = "✅" if is_success else icons.get(fail_type, '❌')
     print(f"  {icon} [{status_code}] {method} {endpoint} ({elapsed_ms}ms)")
 
 def test_health():
@@ -99,7 +101,7 @@ def test_auth():
     body = {"phone": "+905551234567", "password": "Test123456!", "fullName": "API Test Kullanıcı", "email": "apitest@okeymatch.com"}
     code, resp, ms = make_request("POST", "/api/Auth/register", body, headers={})
     add_result("Auth", "POST", "/api/Auth/register", code, resp, "Yeni kullanıcı kaydı", False, body, ms,
-               expected_fail=(code == 400), expected_fail_reason="Kullanıcı daha önce kayıt olmuş olabilir")
+               fail_type="test_data" if code == 400 else None, fail_reason="Telefon numarası zaten kayıtlı — her testte yeni numara oluşturulamıyor")
     if code == 200:
         try:
             data = json.loads(resp)
@@ -128,7 +130,7 @@ def test_auth():
     body = {"phone": "+905551234567", "code": "123456"}
     code, resp, ms = make_request("POST", "/api/Auth/verify-otp", body, headers={})
     add_result("Auth", "POST", "/api/Auth/verify-otp", code, resp, "OTP doğrulama", False, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Test OTP kodu geçersiz olabilir")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Sahte OTP kodu kullanıldı — gerçek SMS kodu olmadan doğrulama yapılamaz")
     if code == 200:
         try:
             data = json.loads(resp)
@@ -176,18 +178,18 @@ def test_users():
     body = {"email": "apitest@okeymatch.com"}
     code, resp, ms = make_request("POST", "/api/Users/email/send-otp", body)
     add_result("Users", "POST", "/api/Users/email/send-otp", code, resp, "Email OTP gönderimi", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Backend email service henüz tam konfigüre edilmemiş olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — email OTP tablosunda sorun var")
 
     # Email Verify OTP
     body = {"email": "apitest@okeymatch.com", "code": "1234"}
     code, resp, ms = make_request("POST", "/api/Users/email/verify-otp", body)
     add_result("Users", "POST", "/api/Users/email/verify-otp", code, resp, "Email OTP doğrulama", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Test OTP kodu geçersiz olabilir")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Sahte OTP kodu kullanıldı — gerçek email kodu olmadan doğrulama yapılamaz")
 
     # GET my listings
     code, resp, ms = make_request("GET", "/api/Users/me/listings?page=1&pageSize=5")
     add_result("Users", "GET", "/api/Users/me/listings", code, resp, "Kullanıcının kendi ilanları", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Backend'de bilinen bir serialization sorunu olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
 
     # GET my applications
     code, resp, ms = make_request("GET", "/api/Users/me/applications?page=1&pageSize=5")
@@ -227,7 +229,7 @@ def test_files():
         resp_text = str(e)
         code = 0
     add_result("Files", "POST", "/api/Files/upload", code, resp_text, "Dosya yükleme (multipart)", True, {"file": "test.png (1x1 PNG)"}, elapsed,
-               expected_fail=(code >= 400), expected_fail_reason="Backend AWS S3 konfigürasyonu henüz tamamlanmamış olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="AWS S3 streaming upload desteği eksik — MinIO konfigürasyonu tamamlanmamış")
 
 def test_listings():
     global CREATED_LISTING_ID
@@ -236,19 +238,19 @@ def test_listings():
 
     code, resp, ms = make_request("GET", "/api/Listings?Page=1&PageSize=5")
     add_result("Listings", "GET", "/api/Listings", code, resp, "Tüm ilanları listele (sayfalama)", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Backend'de bilinen bir serialization sorunu olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
 
     code, resp, ms = make_request("GET", "/api/Listings?City=Istanbul&Level=beginner&Page=1&PageSize=5")
     add_result("Listings", "GET", "/api/Listings?filters", code, resp, "Filtrelenmiş ilan listesi (City, Level)", True, None, ms)
 
     code, resp, ms = make_request("GET", "/api/Listings?Lat=41.0082&Lng=28.9784&RadiusKm=10&Page=1&PageSize=5")
     add_result("Listings", "GET", "/api/Listings?geo", code, resp, "Konum bazlı ilan arama (Lat, Lng, Radius)", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Backend'de bilinen bir serialization sorunu olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
 
     body = {"title": "Test Okey Partisi", "description": "API testi için oluşturulmuş ilan", "city": "İstanbul", "district": "Kadıköy", "lat": 40.9833, "lng": 29.0167, "placeName": "Test Kahvehane", "dateTime": "2026-05-10T14:00:00Z", "playerNeeded": 3, "level": "mid", "minAge": 18, "maxAge": 50}
     code, resp, ms = make_request("POST", "/api/Listings", body)
     add_result("Listings", "POST", "/api/Listings", code, resp, "Yeni ilan oluştur", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Backend entity save hatası — DB migration sorunu olabilir")
+               fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — migration veya constraint sorunu")
     if 200 <= code <= 201:
         try:
             CREATED_LISTING_ID = resp.strip().strip('"')
@@ -259,12 +261,12 @@ def test_listings():
     no_listing = CREATED_LISTING_ID is None
     code, resp, ms = make_request("GET", f"/api/Listings/{test_id}")
     add_result("Listings", "GET", "/api/Listings/{id}", code, resp, "ID ile ilan detayı getir", True, None, ms,
-               expected_fail=(no_listing and code >= 400), expected_fail_reason="İlan oluşturulamadığı için dummy ID ile test edildi")
+               fail_type="cascade" if (no_listing and code >= 400) else None, fail_reason="POST /api/Listings başarısız → gerçek ilan ID'si yok")
 
     body = {"title": "Güncellenmiş Test İlanı", "description": "Güncellenmiş açıklama", "playerNeeded": 2, "level": "advanced"}
     code, resp, ms = make_request("PUT", f"/api/Listings/{test_id}", body)
     add_result("Listings", "PUT", "/api/Listings/{id}", code, resp, "İlan güncelle", True, body, ms,
-               expected_fail=(no_listing and code >= 400), expected_fail_reason="İlan oluşturulamadığı için dummy ID ile test edildi")
+               fail_type="cascade" if (no_listing and code >= 400) else None, fail_reason="POST /api/Listings başarısız → gerçek ilan ID'si yok")
 
 def test_listings_cleanup():
     print("\n📌 LISTINGS - Destructive Operations")
@@ -273,10 +275,10 @@ def test_listings_cleanup():
     no_listing = CREATED_LISTING_ID is None
     code, resp, ms = make_request("PATCH", f"/api/Listings/{test_id}/cancel")
     add_result("Listings", "PATCH", "/api/Listings/{id}/cancel", code, resp, "İlan iptal et", True, None, ms,
-               expected_fail=(no_listing and code >= 400), expected_fail_reason="İlan oluşturulamadığı için dummy ID ile test edildi")
+               fail_type="cascade" if (no_listing and code >= 400) else None, fail_reason="POST /api/Listings başarısız → gerçek ilan ID'si yok")
     code, resp, ms = make_request("DELETE", f"/api/Listings/{test_id}")
     add_result("Listings", "DELETE", "/api/Listings/{id}", code, resp, "İlan sil", True, None, ms,
-               expected_fail=(no_listing and code >= 400), expected_fail_reason="İlan oluşturulamadığı için dummy ID ile test edildi")
+               fail_type="cascade" if (no_listing and code >= 400) else None, fail_reason="POST /api/Listings başarısız → gerçek ilan ID'si yok")
 
 def test_applications():
     global CREATED_APP_ID
@@ -287,7 +289,7 @@ def test_applications():
     body = {"joinedAsGroupCount": 1, "message": "Ben de oynamak istiyorum!"}
     code, resp, ms = make_request("POST", f"/api/Applications/apply/{test_listing_id}", body)
     add_result("Applications", "POST", "/api/Applications/apply/{listingId}", code, resp, "İlana başvuru yap", True, body, ms,
-               expected_fail=(code == 400), expected_fail_reason="Tek kullanıcı testi — kendi ilanına başvuru yapılamaz")
+               fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else None, fail_reason="POST /api/Listings başarısız → geçerli ilan yok")
     if 200 <= code <= 201:
         try:
             CREATED_APP_ID = resp.strip().strip('"')
@@ -295,18 +297,18 @@ def test_applications():
 
     code, resp, ms = make_request("GET", f"/api/Applications/listing/{test_listing_id}")
     add_result("Applications", "GET", "/api/Applications/listing/{listingId}", code, resp, "İlanın başvurularını listele", True, None, ms,
-               expected_fail=(CREATED_LISTING_ID is None and code >= 400), expected_fail_reason="İlan oluşturulamadığı için dummy ID ile test edildi")
+               fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else None, fail_reason="POST /api/Listings başarısız → geçerli ilan yok")
 
     test_app_id = CREATED_APP_ID or "00000000-0000-0000-0000-000000000001"
     code, resp, ms = make_request("POST", f"/api/Applications/{test_app_id}/accept")
     add_result("Applications", "POST", "/api/Applications/{id}/accept", code, resp, "Başvuruyu kabul et", True, None, ms,
-               expected_fail=True, expected_fail_reason="Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)")
+               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → kabul edilecek başvuru yok")
     code, resp, ms = make_request("POST", f"/api/Applications/{test_app_id}/reject")
     add_result("Applications", "POST", "/api/Applications/{id}/reject", code, resp, "Başvuruyu reddet", True, None, ms,
-               expected_fail=True, expected_fail_reason="Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)")
+               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → reddedilecek başvuru yok")
     code, resp, ms = make_request("DELETE", f"/api/Applications/{test_app_id}")
     add_result("Applications", "DELETE", "/api/Applications/{id}", code, resp, "Başvuruyu sil/geri çek", True, None, ms,
-               expected_fail=True, expected_fail_reason="Geçerli başvuru oluşturulamadı (tek kullanıcı limiti)")
+               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → silinecek başvuru yok")
 
 def test_notifications():
     print("\n📌 NOTIFICATIONS Endpoints")
@@ -324,7 +326,7 @@ def test_notifications():
     body = {"notificationIds": ["00000000-0000-0000-0000-000000000001"]}
     code, resp, ms = make_request("POST", "/api/Notifications/mark-read", body)
     add_result("Notifications", "POST", "/api/Notifications/mark-read", code, resp, "Bildirimleri okundu işaretle", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Dummy notification ID kullanıldı")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy notification ID kullanıldı — gerçek bildirim yok")
 
 def test_payments():
     print("\n📌 PAYMENTS Endpoints")
@@ -335,7 +337,7 @@ def test_payments():
     body = {"transactionId": "test-tx-id", "success": True, "threeDSecureResult": "OK"}
     code, resp, ms = make_request("POST", "/api/Payments/3dsecure/callback", body)
     add_result("Payments", "POST", "/api/Payments/3dsecure/callback", code, resp, "3D Secure callback işlemi", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Dummy transaction ID kullanıldı — gerçek ödeme işlemi yok")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy transaction ID kullanıldı — gerçek ödeme işlemi yok")
     code, resp, ms = make_request("GET", "/api/Payments/mock/3dsecure/verify/test-tx-id")
     add_result("Payments", "GET", "/api/Payments/mock/3dsecure/verify/{txId}", code, resp, "3D Secure doğrulama (mock)", False, None, ms)
 
@@ -345,7 +347,7 @@ def test_ratings():
     body = {"roomId": "00000000-0000-0000-0000-000000000001", "toUserId": "00000000-0000-0000-0000-000000000002", "score": 5, "comment": "Harika bir oyuncu!"}
     code, resp, ms = make_request("POST", "/api/Ratings", body)
     add_result("Ratings", "POST", "/api/Ratings", code, resp, "Oyuncu değerlendirmesi oluştur", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Gerçek room/user ID gerekli")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy room/user ID kullanıldı — gerçek maç odası yok")
     test_user = CURRENT_USER_ID or "00000000-0000-0000-0000-000000000001"
     code, resp, ms = make_request("GET", f"/api/Ratings/user/{test_user}")
     add_result("Ratings", "GET", "/api/Ratings/user/{userId}", code, resp, "Kullanıcının aldığı değerlendirmeler", True, None, ms)
@@ -355,10 +357,10 @@ def test_rooms():
     print("─" * 50)
     code, resp, ms = make_request("GET", "/api/Rooms/00000000-0000-0000-0000-000000000001")
     add_result("Rooms", "GET", "/api/Rooms/{id}", code, resp, "Maç odası detayı getir", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Gerçek room ID gerekli — henüz maç oluşturulmadı")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy room ID kullanıldı — henüz maç oluşturulmadı")
     code, resp, ms = make_request("POST", "/api/Rooms/00000000-0000-0000-0000-000000000001/confirm-attendance")
     add_result("Rooms", "POST", "/api/Rooms/{id}/confirm-attendance", code, resp, "Maça katılım onayla", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Gerçek room ID gerekli — henüz maç oluşturulmadı")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy room ID kullanıldı — katılımcı değilsiniz")
 
 def test_subscriptions():
     print("\n📌 SUBSCRIPTIONS Endpoints")
@@ -370,15 +372,15 @@ def test_subscriptions():
     body = {"planId": "00000000-0000-0000-0000-000000000001", "paymentReceipt": "test-receipt-123", "platform": "ios"}
     code, resp, ms = make_request("POST", "/api/Subscriptions", body)
     add_result("Subscriptions", "POST", "/api/Subscriptions", code, resp, "Abonelik oluştur", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Geçersiz plan ID kullanıldı")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Dummy plan ID kullanıldı — geçerli abonelik planı yok")
     code, resp, ms = make_request("POST", "/api/Subscriptions/me/cancel")
     add_result("Subscriptions", "POST", "/api/Subscriptions/me/cancel", code, resp, "Aboneliği iptal et", True, None, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Aktif abonelik yok")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Kullanıcının aktif aboneliği yok")
     test_id = CREATED_LISTING_ID or "00000000-0000-0000-0000-000000000001"
     body = {"durationHours": 24}
     code, resp, ms = make_request("POST", f"/api/Subscriptions/boost/{test_id}", body)
     add_result("Subscriptions", "POST", "/api/Subscriptions/boost/{listingId}", code, resp, "İlanı öne çıkar (boost)", True, body, ms,
-               expected_fail=(code >= 400), expected_fail_reason="Aktif abonelik veya boost hakkı yok")
+               fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else ("test_data" if code >= 400 else None), fail_reason="İlan oluşturulamadı → boost yapılacak ilan yok")
 
 def test_users_cleanup():
     print("\n📌 USERS - Delete Account (SKIP)")
@@ -422,8 +424,10 @@ def generate_html_report():
     total = len(RESULTS)
     success = sum(1 for r in RESULTS if r['isSuccess'])
     failed = total - success
-    expected_fails = sum(1 for r in RESULTS if r.get('expectedFail') and not r['isSuccess'])
-    real_fails = failed - expected_fails
+    backend_bugs = sum(1 for r in RESULTS if r.get('failType') == 'backend_bug' and not r['isSuccess'])
+    cascade_fails = sum(1 for r in RESULTS if r.get('failType') == 'cascade' and not r['isSuccess'])
+    test_data_fails = sum(1 for r in RESULTS if r.get('failType') == 'test_data' and not r['isSuccess'])
+    real_fails = backend_bugs  # Only backend bugs count as real failures
 
     categories = {}
     for r in RESULTS:
@@ -444,21 +448,42 @@ def generate_html_report():
     cat_html = ""
     for cat_name, items in categories.items():
         cat_success = sum(1 for i in items if i['isSuccess'])
-        cat_fail = len(items) - cat_success
+        cat_backend = sum(1 for i in items if not i['isSuccess'] and i.get('failType') == 'backend_bug')
+        cat_cascade = sum(1 for i in items if not i['isSuccess'] and i.get('failType') == 'cascade')
+        cat_testdata = sum(1 for i in items if not i['isSuccess'] and i.get('failType') == 'test_data')
+        cat_other = len(items) - cat_success - cat_backend - cat_cascade - cat_testdata
         icon = category_icons.get(cat_name, '📌')
 
         badges_html = ""
         if cat_success > 0:
             badges_html += f'<span class="badge badge-success">{cat_success} başarılı</span>'
-        if cat_fail > 0:
-            badges_html += f'<span class="badge badge-fail">{cat_fail} başarısız</span>'
+        if cat_backend > 0:
+            badges_html += f'<span class="badge badge-fail">{cat_backend} backend</span>'
+        if cat_cascade > 0:
+            badges_html += f'<span class="badge badge-cascade">{cat_cascade} cascade</span>'
+        if cat_testdata > 0:
+            badges_html += f'<span class="badge badge-testdata">{cat_testdata} test verisi</span>'
 
         endpoints_html = ""
         for item in items:
             mc = method_colors.get(item['method'], '#999')
             sc_class = 's2xx' if item['isSuccess'] else ('s4xx' if 400 <= item['statusCode'] < 500 else ('s5xx' if item['statusCode'] >= 500 else 's0xx'))
-            status_icon = '✅' if item['isSuccess'] else ('⚠️' if item.get('expectedFail') else '❌')
-            status_class = 'success' if item['isSuccess'] else 'fail'
+            fail_type = item.get('failType')
+            if item['isSuccess']:
+                status_icon = '✅'
+                status_class = 'success'
+            elif fail_type == 'backend_bug':
+                status_icon = '🔴'
+                status_class = 'fail'
+            elif fail_type == 'cascade':
+                status_icon = '🟠'
+                status_class = 'cascade'
+            elif fail_type == 'test_data':
+                status_icon = '🟡'
+                status_class = 'testdata'
+            else:
+                status_icon = '❌'
+                status_class = 'fail'
             auth_badge = f'<span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>' if item['requiresAuth'] else ''
 
             details_html = ""
@@ -468,11 +493,23 @@ def generate_html_report():
             escaped_resp = html_module.escape(str(item['responseBody']))
             details_html += f'<div class="detail-section"><h4>📥 Yanıt (Response) — HTTP {item["statusCode"]}</h4><div class="code-block">{escaped_resp}</div></div>'
 
-            if not item['isSuccess'] and item.get('expectedFail'):
-                details_html += f'''<div class="detail-section"><div class="analysis-box expected-fail">
-                    <h4>ℹ️ Beklenen Davranış</h4>
-                    <p><strong>Sebep:</strong> {item.get("expectedFailReason", "")}</p>
-                    <p><strong>Not:</strong> Bu bir backend hatası değil, test limitasyonundan kaynaklı beklenen sonuçtur.</p>
+            if not item['isSuccess'] and fail_type == 'backend_bug':
+                details_html += f'''<div class="detail-section"><div class="analysis-box backend-bug">
+                    <h4>🔴 Backend Hatası</h4>
+                    <p><strong>Sebep:</strong> {item.get("failReason", "")}</p>
+                    <p><strong>Öneri:</strong> Backend ekibinin düzeltmesi gereken bir hatadır.</p>
+                </div></div>'''
+            elif not item['isSuccess'] and fail_type == 'cascade':
+                details_html += f'''<div class="detail-section"><div class="analysis-box cascade-fail">
+                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
+                    <p><strong>Sebep:</strong> {item.get("failReason", "")}</p>
+                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
+                </div></div>'''
+            elif not item['isSuccess'] and fail_type == 'test_data':
+                details_html += f'''<div class="detail-section"><div class="analysis-box test-data">
+                    <h4>🟡 Test Verisi Limitasyonu</h4>
+                    <p><strong>Sebep:</strong> {item.get("failReason", "")}</p>
+                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div>'''
             elif not item['isSuccess']:
                 details_html += f'''<div class="detail-section"><div class="analysis-box">
@@ -481,9 +518,14 @@ def generate_html_report():
                     <p><strong>Öneri:</strong> Backend loglarını kontrol edin.</p>
                 </div></div>'''
 
-            ef_class = ' expected-fail-row' if (item.get('expectedFail') and not item['isSuccess']) else ''
+            row_class = ''
+            if not item['isSuccess']:
+                if fail_type == 'backend_bug': row_class = ' backend-bug-row'
+                elif fail_type == 'cascade': row_class = ' cascade-fail-row'
+                elif fail_type == 'test_data': row_class = ' test-data-row'
 
-            endpoints_html += f'''<div class="endpoint{ef_class}" data-success="{str(item['isSuccess']).lower()}" onclick="this.classList.toggle('expanded')">
+            data_fail_type = fail_type or 'none'
+            endpoints_html += f'''<div class="endpoint{row_class}" data-success="{str(item['isSuccess']).lower()}" data-failtype="{data_fail_type}" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status {status_class}">{status_icon}</div>
                     <span class="method-badge" style="background:{mc}">{item['method']}</span>
@@ -575,7 +617,7 @@ def generate_html_report():
     <title>OkeyAdvert API Test Raporu v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {{--bg-primary:#0a0e1a;--bg-secondary:#111827;--bg-card:#1a1f35;--bg-card-hover:#1f2645;--border:#2a3155;--text-primary:#e8eaf6;--text-secondary:#9ca3af;--text-muted:#6b7280;--accent-green:#10b981;--accent-green-bg:rgba(16,185,129,0.1);--accent-red:#ef4444;--accent-red-bg:rgba(239,68,68,0.1);--accent-blue:#3b82f6;--accent-blue-bg:rgba(59,130,246,0.1);--accent-amber:#f59e0b;--accent-purple:#8b5cf6;}}
+        :root {{--bg-primary:#0a0e1a;--bg-secondary:#111827;--bg-card:#1a1f35;--bg-card-hover:#1f2645;--border:#2a3155;--text-primary:#e8eaf6;--text-secondary:#9ca3af;--text-muted:#6b7280;--accent-green:#10b981;--accent-green-bg:rgba(16,185,129,0.1);--accent-red:#ef4444;--accent-red-bg:rgba(239,68,68,0.1);--accent-blue:#3b82f6;--accent-blue-bg:rgba(59,130,246,0.1);--accent-amber:#f59e0b;--accent-orange:#f97316;--accent-purple:#8b5cf6;}}
         * {{margin:0;padding:0;box-sizing:border-box;}}
         body {{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;line-height:1.6;}}
         .background-pattern {{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 20% 50%,rgba(59,130,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 50%,rgba(139,92,246,0.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 0%,rgba(16,185,129,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}}
@@ -586,22 +628,24 @@ def generate_html_report():
         .header .test-date {{color:var(--text-muted);font-size:0.85rem;margin-top:0.5rem;font-family:'JetBrains Mono',monospace;}}
 
         /* Summary Cards */
-        .summary {{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2.5rem;}}
-        .summary-card {{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}}
+        .summary {{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem;margin-bottom:2.5rem;}}
+        .summary-card {{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:1.25rem 0.75rem;text-align:center;transition:all 0.3s ease;position:relative;overflow:hidden;}}
         .summary-card::before {{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}}
         .summary-card.total::before {{background:linear-gradient(90deg,#3b82f6,#8b5cf6);}}
         .summary-card.success::before {{background:linear-gradient(90deg,#10b981,#34d399);}}
         .summary-card.failed::before {{background:linear-gradient(90deg,#ef4444,#f87171);}}
-        .summary-card.rate::before {{background:linear-gradient(90deg,#f59e0b,#fbbf24);}}
-        .summary-card.expected::before {{background:linear-gradient(90deg,#8b5cf6,#a78bfa);}}
+        .summary-card.cascade::before {{background:linear-gradient(90deg,#f97316,#fb923c);}}
+        .summary-card.testdata::before {{background:linear-gradient(90deg,#f59e0b,#fbbf24);}}
+        .summary-card.rate::before {{background:linear-gradient(90deg,#8b5cf6,#a78bfa);}}
         .summary-card:hover {{transform:translateY(-4px);border-color:rgba(59,130,246,0.3);box-shadow:0 8px 25px rgba(0,0,0,0.3);}}
-        .summary-card .number {{font-size:2.2rem;font-weight:800;margin-bottom:0.25rem;line-height:1.1;}}
+        .summary-card .number {{font-size:2rem;font-weight:800;margin-bottom:0.25rem;line-height:1.1;}}
         .summary-card.total .number {{color:var(--accent-blue);}}
         .summary-card.success .number {{color:var(--accent-green);}}
         .summary-card.failed .number {{color:var(--accent-red);}}
-        .summary-card.rate .number {{color:var(--accent-amber);}}
-        .summary-card.expected .number {{color:var(--accent-purple);}}
-        .summary-card .label {{color:var(--text-secondary);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}}
+        .summary-card.cascade .number {{color:var(--accent-orange);}}
+        .summary-card.testdata .number {{color:var(--accent-amber);}}
+        .summary-card.rate .number {{color:var(--accent-purple);}}
+        .summary-card .label {{color:var(--text-secondary);font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;}}
 
         /* Categories */
         .category {{margin-bottom:2rem;}}
@@ -612,15 +656,21 @@ def generate_html_report():
         .badge {{padding:0.25rem 0.75rem;border-radius:100px;font-size:0.75rem;font-weight:600;white-space:nowrap;}}
         .badge-success {{background:var(--accent-green-bg);color:var(--accent-green);border:1px solid rgba(16,185,129,0.2);}}
         .badge-fail {{background:var(--accent-red-bg);color:var(--accent-red);border:1px solid rgba(239,68,68,0.2);}}
+        .badge-cascade {{background:rgba(249,115,22,0.1);color:var(--accent-orange);border:1px solid rgba(249,115,22,0.2);}}
+        .badge-testdata {{background:rgba(245,158,11,0.1);color:var(--accent-amber);border:1px solid rgba(245,158,11,0.2);}}
 
         /* Endpoints */
         .endpoint {{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:0.6rem;overflow:hidden;transition:all 0.2s ease;}}
         .endpoint:hover {{border-color:rgba(59,130,246,0.3);}}
-        .endpoint.expected-fail-row {{border-left:3px solid var(--accent-purple);}}
+        .endpoint.backend-bug-row {{border-left:3px solid var(--accent-red);}}
+        .endpoint.cascade-fail-row {{border-left:3px solid var(--accent-orange);}}
+        .endpoint.test-data-row {{border-left:3px solid var(--accent-amber);}}
         .endpoint-header {{display:flex;align-items:center;padding:0.85rem 1.25rem;cursor:pointer;gap:0.75rem;user-select:none;}}
         .endpoint-status {{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;}}
         .endpoint-status.success {{background:var(--accent-green-bg);}}
         .endpoint-status.fail {{background:var(--accent-red-bg);}}
+        .endpoint-status.cascade {{background:rgba(249,115,22,0.1);}}
+        .endpoint-status.testdata {{background:rgba(245,158,11,0.1);}}
         .method-badge {{padding:0.2rem 0.5rem;border-radius:6px;font-size:0.65rem;font-weight:700;font-family:'JetBrains Mono',monospace;text-transform:uppercase;color:#fff;min-width:55px;text-align:center;flex-shrink:0;}}
         .endpoint-path {{font-family:'JetBrains Mono',monospace;font-size:0.82rem;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
         .endpoint-desc {{color:var(--text-secondary);font-size:0.78rem;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;text-align:right;}}
@@ -640,9 +690,13 @@ def generate_html_report():
         .detail-section h4 {{font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.5rem;font-weight:600;}}
         .code-block {{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#e6edf3;overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto;line-height:1.5;}}
         .analysis-box {{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:1rem;margin-top:0.5rem;}}
-        .analysis-box.expected-fail {{background:rgba(139,92,246,0.08);border-color:rgba(139,92,246,0.2);}}
+        .analysis-box.backend-bug {{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.2);}}
+        .analysis-box.cascade-fail {{background:rgba(249,115,22,0.08);border-color:rgba(249,115,22,0.2);}}
+        .analysis-box.test-data {{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.2);}}
         .analysis-box h4 {{color:var(--accent-amber);font-size:0.85rem;margin-bottom:0.5rem;text-transform:none;letter-spacing:0;}}
-        .analysis-box.expected-fail h4 {{color:var(--accent-purple);}}
+        .analysis-box.backend-bug h4 {{color:var(--accent-red);}}
+        .analysis-box.cascade-fail h4 {{color:var(--accent-orange);}}
+        .analysis-box.test-data h4 {{color:var(--accent-amber);}}
         .analysis-box p {{color:var(--text-secondary);font-size:0.8rem;margin-bottom:0.25rem;}}
 
         /* Filters */
@@ -669,8 +723,8 @@ def generate_html_report():
         /* Tablet */
         @media (max-width: 1024px) {{
             .container {{padding:1.5rem;}}
-            .summary {{grid-template-columns:repeat(5,1fr);gap:0.75rem;}}
-            .summary-card .number {{font-size:1.8rem;}}
+            .summary {{grid-template-columns:repeat(3,1fr);gap:0.75rem;}}
+            .summary-card .number {{font-size:1.6rem;}}
             .summary-card .label {{font-size:0.65rem;}}
             .endpoint-desc {{display:none;}}
         }}
@@ -711,8 +765,9 @@ def generate_html_report():
         <div class="summary">
             <div class="summary-card total"><div class="number">{total}</div><div class="label">Toplam</div></div>
             <div class="summary-card success"><div class="number">{success}</div><div class="label">Başarılı ✅</div></div>
-            <div class="summary-card failed"><div class="number">{real_fails}</div><div class="label">Hata ❌</div></div>
-            <div class="summary-card expected"><div class="number">{expected_fails}</div><div class="label">Beklenen ⚠️</div></div>
+            <div class="summary-card failed"><div class="number">{backend_bugs}</div><div class="label">Backend 🔴</div></div>
+            <div class="summary-card cascade"><div class="number">{cascade_fails}</div><div class="label">Cascade 🟠</div></div>
+            <div class="summary-card testdata"><div class="number">{test_data_fails}</div><div class="label">Test Verisi 🟡</div></div>
             <div class="summary-card rate"><div class="number">{rate}%</div><div class="label">Başarı</div></div>
         </div>
 
@@ -721,8 +776,9 @@ def generate_html_report():
         <div class="filter-bar">
             <button class="filter-btn active" onclick="filterResults('all', this)">Tümü ({total})</button>
             <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı ({success})</button>
-            <button class="filter-btn" onclick="filterResults('fail', this)">❌ Başarısız ({failed})</button>
-            <button class="filter-btn" onclick="filterResults('expected', this)">⚠️ Beklenen ({expected_fails})</button>
+            <button class="filter-btn" onclick="filterResults('backend_bug', this)">🔴 Backend ({backend_bugs})</button>
+            <button class="filter-btn" onclick="filterResults('cascade', this)">🟠 Cascade ({cascade_fails})</button>
+            <button class="filter-btn" onclick="filterResults('test_data', this)">🟡 Test Verisi ({test_data_fails})</button>
         </div>
 
         {cat_html}
@@ -739,11 +795,12 @@ def generate_html_report():
             btn.classList.add('active');
             document.querySelectorAll('.endpoint').forEach(el => {{
                 const isSuccess = el.dataset.success === 'true';
-                const isExpected = el.classList.contains('expected-fail-row');
+                const failType = el.dataset.failtype;
                 if (type === 'all') el.style.display = '';
                 else if (type === 'success') el.style.display = isSuccess ? '' : 'none';
-                else if (type === 'fail') el.style.display = !isSuccess ? '' : 'none';
-                else if (type === 'expected') el.style.display = (isExpected && !isSuccess) ? '' : 'none';
+                else if (type === 'backend_bug') el.style.display = (failType === 'backend_bug' && !isSuccess) ? '' : 'none';
+                else if (type === 'cascade') el.style.display = (failType === 'cascade' && !isSuccess) ? '' : 'none';
+                else if (type === 'test_data') el.style.display = (failType === 'test_data' && !isSuccess) ? '' : 'none';
             }});
         }}
 
@@ -796,11 +853,14 @@ if __name__ == '__main__':
 
     total = len(RESULTS)
     success = sum(1 for r in RESULTS if r['isSuccess'])
-    expected = sum(1 for r in RESULTS if r.get('expectedFail') and not r['isSuccess'])
+    backend = sum(1 for r in RESULTS if r.get('failType') == 'backend_bug' and not r['isSuccess'])
+    cascade = sum(1 for r in RESULTS if r.get('failType') == 'cascade' and not r['isSuccess'])
+    testdata = sum(1 for r in RESULTS if r.get('failType') == 'test_data' and not r['isSuccess'])
     print(f"\n{'=' * 60}")
     print(f"📊 Sonuç: {success}/{total} başarılı ({round(success/total*100)}%)")
-    print(f"   ⚠️ Beklenen hatalar: {expected}")
-    print(f"   ❌ Gerçek hatalar: {total - success - expected}")
+    print(f"   🔴 Backend hataları: {backend}")
+    print(f"   🟠 Cascade fail: {cascade}")
+    print(f"   🟡 Test verisi: {testdata}")
     print(f"{'=' * 60}")
 
     generate_html_report()
