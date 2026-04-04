@@ -147,17 +147,17 @@
         <div class="header">
             <h1>🎯 OkeyAdvert API Test Raporu</h1>
             <p class="subtitle">Tüm endpoint'lerin otomatik test sonuçları</p>
-            <p class="test-date">Test tarihi: 04 April 2026, 21:31:49</p>
+            <p class="test-date">Test tarihi: 04 April 2026, 21:46:51</p>
             <p class="test-date">Base URL: https://okey-api.kolaytech.com</p>
         </div>
 
         <div class="summary">
             <div class="summary-card total"><div class="number">46</div><div class="label">Toplam</div></div>
-            <div class="summary-card success"><div class="number">33</div><div class="label">Başarılı ✅</div></div>
+            <div class="summary-card success"><div class="number">36</div><div class="label">Başarılı ✅</div></div>
             <div class="summary-card failed"><div class="number">1</div><div class="label">Backend 🔴</div></div>
             <div class="summary-card cascade"><div class="number">0</div><div class="label">Cascade 🟠</div></div>
-            <div class="summary-card testdata"><div class="number">12</div><div class="label">Test Verisi 🟡</div></div>
-            <div class="summary-card rate"><div class="number">72%</div><div class="label">Başarı</div></div>
+            <div class="summary-card testdata"><div class="number">9</div><div class="label">Test Verisi 🟡</div></div>
+            <div class="summary-card rate"><div class="number">78%</div><div class="label">Başarı</div></div>
         </div>
 
         <div class="spec-analysis">
@@ -207,10 +207,10 @@
 
         <div class="filter-bar">
             <button class="filter-btn active" onclick="filterResults('all', this)">Tümü (46)</button>
-            <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı (33)</button>
+            <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı (36)</button>
             <button class="filter-btn" onclick="filterResults('backend_bug', this)">🔴 Backend (1)</button>
             <button class="filter-btn" onclick="filterResults('cascade', this)">🟠 Cascade (0)</button>
-            <button class="filter-btn" onclick="filterResults('test_data', this)">🟡 Test Verisi (12)</button>
+            <button class="filter-btn" onclick="filterResults('test_data', this)">🟡 Test Verisi (9)</button>
         </div>
 
         <div class="category">
@@ -228,7 +228,7 @@
                     <span class="endpoint-desc">API dökümantasyonu erişimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">1042ms</span>
+                        <span class="elapsed">1132ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -238,31 +238,27 @@
             <div class="category-header">
                 <span class="category-icon">🔐</span>
                 <h2>Auth</h2>
-                <div class="category-badge"><span class="badge badge-success">3 başarılı</span><span class="badge badge-testdata">2 test verisi</span></div>
+                <div class="category-badge"><span class="badge badge-success">4 başarılı</span><span class="badge badge-testdata">1 test verisi</span></div>
             </div>
-            <div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
+            <div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status testdata">🟡</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#49cc90">POST</span>
                     <span class="endpoint-path">/api/Auth/register</span>
                     
-                    <span class="endpoint-desc">Yeni kullanıcı kaydı</span>
+                    <span class="endpoint-desc">Yeni kullanıcı kaydı (rastgele telefon)</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">1081ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">900ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
-  &quot;phone&quot;: &quot;+905551234567&quot;,
+  &quot;phone&quot;: &quot;+905555410538&quot;,
   &quot;password&quot;: &quot;Test123456!&quot;,
-  &quot;fullName&quot;: &quot;API Test Kullanıcı&quot;,
-  &quot;email&quot;: &quot;apitest@okeymatch.com&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Bu telefon numarası zaten kayıtlı&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
-                    <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Telefon numarası zaten kayıtlı — her testte yeni numara oluşturulamıyor</p>
-                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
-                </div></div></div></div>
+  &quot;fullName&quot;: &quot;API Test Kullanıcı New&quot;,
+  &quot;email&quot;: &quot;apitest321@okeymatch.com&quot;
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNTlkMS0wNGY2LTc1MGItOTlmNi1lNTE3MTBhNDIzMWMiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTU0MTA1MzgiLCJqdGkiOiIzYTk1YjViZi0zNjIwLTQwN2YtYjAxZi1iYWRlYjRhNmMwNTMiLCJwaG9uZSI6Iis5MDU1NTU0MTA1MzgiLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6ImFwaXRlc3QzMjFAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMzMTk2MywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.e499HtSI9_x7TC9O8LztZpQaeP1U_ycCszpN8K1h8sw&quot;,&quot;refreshToken&quot;:&quot;37e87d2dd92d416d9e02f85f18a9a0ae18663133d7e74f43bd3e1b989d093880&quot;,&quot;phoneVerified&quot;:false,&quot;profileCompleted&quot;:false}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -272,14 +268,14 @@
                     <span class="endpoint-desc">Kullanıcı girişi (phone + password)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">991ms</span>
+                        <span class="elapsed">1057ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;phone&quot;: &quot;+905551234567&quot;,
   &quot;password&quot;: &quot;Test123456!&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJiZGVjMjAzZC03OGY2LTRlNTgtODIzYy03NTliNWY2NGY4NWIiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMzMTA3OCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.u4lr_J-HewsNuW-86oCbLGAV_A0bEk67olLrHk_iS5M&quot;,&quot;refreshToken&quot;:&quot;b749b059aeba40e9a5a543f2752d7824e952996284bd4fe88ef9e69126f51dee&quot;,&quot;phoneVerified&quot;:false,&quot;profileCompleted&quot;:false}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiIxODY4ZDdjMC1hODE2LTRmMDMtYjEwMC00ZTgwMWM1NTIxYTUiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMzMTk2NCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.ULAqnBiRXR8zgzH7BCUD8akU2U16cN74yhKQwFJGzyg&quot;,&quot;refreshToken&quot;:&quot;0e258c2bb8c643bfa15b0bfde9ccf8dde8ce032017e74ff1b1340e39f67a6cc4&quot;,&quot;phoneVerified&quot;:false,&quot;profileCompleted&quot;:false}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -289,7 +285,7 @@
                     <span class="endpoint-desc">SMS ile OTP kodu gönderme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">701ms</span>
+                        <span class="elapsed">2094ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -305,7 +301,7 @@
                     <span class="endpoint-desc">OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">900ms</span>
+                        <span class="elapsed">955ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -326,13 +322,13 @@
                     <span class="endpoint-desc">Access token yenileme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">335ms</span>
+                        <span class="elapsed">319ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
-  &quot;refreshToken&quot;: &quot;b749b059aeba40e9a5a543f2752d7824e952996284bd4fe88ef9e69126f51dee&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI2Yzc3MDFhMy1kN2FmLTQ4MTktODFlZi1kM2RlYjVjMTlmMWIiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMzMTA4MCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.jCIQqQ-RcL6b3NnzhiT5HS5nrMpL48jT-_bo-l_qThc&quot;,&quot;refreshToken&quot;:&quot;60b8dd67d7a94bed9da0dba6b697131a607b6402346c430c9c16d12b296eac80&quot;}</div></div></div></div>
+  &quot;refreshToken&quot;: &quot;0e258c2bb8c643bfa15b0bfde9ccf8dde8ce032017e74ff1b1340e39f67a6cc4&quot;
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI5NDY5OWMxYy01M2FkLTRhN2QtYTYyYi00ZGJlY2Y0NTc2Y2QiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMzMTk2OCwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.S0clJVyMGUt5xvladmNNzJnlzth7L4O6OcKHSwM3S7I&quot;,&quot;refreshToken&quot;:&quot;e90e787aa60b4a7c92113abc0fa6a8a8974a33eee6c4445bb4119be01a3f82a3&quot;}</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
@@ -349,7 +345,7 @@
                     <span class="endpoint-desc">Mevcut kullanıcı profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">419ms</span>
+                        <span class="elapsed">1512ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -363,7 +359,7 @@
                     <span class="endpoint-desc">Profil güncelleme + onboarding</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">438ms</span>
+                        <span class="elapsed">531ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -384,7 +380,7 @@
                     <span class="endpoint-desc">Başka kullanıcının public profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">850ms</span>
+                        <span class="elapsed">514ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -398,7 +394,7 @@
                     <span class="endpoint-desc">Email OTP gönderimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">389ms</span>
+                        <span class="elapsed">671ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -418,7 +414,7 @@
                     <span class="endpoint-desc">Email OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">442ms</span>
+                        <span class="elapsed">532ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -439,7 +435,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi ilanları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">950ms</span>
+                        <span class="elapsed">728ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -453,7 +449,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi başvuruları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">416ms</span>
+                        <span class="elapsed">1458ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -467,7 +463,7 @@
                     <span class="endpoint-desc">Maç geçmişi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">286ms</span>
+                        <span class="elapsed">520ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -502,13 +498,13 @@
                     <span class="endpoint-desc">Dosya yükleme (multipart)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">1296ms</span>
+                        <span class="elapsed">2065ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;file&quot;: &quot;test.png (1x1 PNG)&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;fileUrl&quot;:&quot;https://5dcab9721f587d773776412064689c95.r2.cloudflarestorage.com/okey-advert/9c99cf12-3103-46af-b6b6-aa551de0846d/221cb051-a77d-450c-9ab5-63e4b477288c.png?X-Amz-Expires=3600&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=747e0f7b150d1f6f21278d608fd287a8%2F20260404%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260404T183127Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=9c1061ee746218b2009db265903afcdbea3332f7604de8f063815aae020c371e&quot;}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;fileUrl&quot;:&quot;https://5dcab9721f587d773776412064689c95.r2.cloudflarestorage.com/okey-advert/9f495421-d168-4ed4-a1e9-30545cccff7f/097a75b6-d16b-4e66-b16a-e200406fdc5b.png?X-Amz-Expires=3600&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=747e0f7b150d1f6f21278d608fd287a8%2F20260404%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260404T184618Z&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=2d2220c55ee1a673dacf73ae80beb8d5ef4aa8f19a355919f7b3d516efe389de&quot;}</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
@@ -525,7 +521,7 @@
                     <span class="endpoint-desc">Tüm ilanları listele (sayfalama)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">1084ms</span>
+                        <span class="elapsed">480ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -539,7 +535,7 @@
                     <span class="endpoint-desc">Filtrelenmiş ilan listesi (City, Level)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">386ms</span>
+                        <span class="elapsed">893ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -553,7 +549,7 @@
                     <span class="endpoint-desc">Konum bazlı ilan arama (Lat, Lng, Radius)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">375ms</span>
+                        <span class="elapsed">538ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -567,7 +563,7 @@
                     <span class="endpoint-desc">Yeni ilan oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">201</span>
-                        <span class="elapsed">372ms</span>
+                        <span class="elapsed">960ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -580,11 +576,11 @@
   &quot;lng&quot;: 29.0167,
   &quot;placeName&quot;: &quot;Test Kahvehane&quot;,
   &quot;dateTime&quot;: &quot;2026-05-10T14:00:00Z&quot;,
-  &quot;playerNeeded&quot;: 3,
+  &quot;playerNeeded&quot;: 1,
   &quot;level&quot;: &quot;mid&quot;,
   &quot;minAge&quot;: 18,
   &quot;maxAge&quot;: 50
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 201</h4><div class="code-block">{&quot;id&quot;:&quot;019d59c3-af3c-7bb6-a463-69e44497c097&quot;}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 201</h4><div class="code-block">{&quot;id&quot;:&quot;019d59d1-4cee-73e7-bc81-3817f8373a20&quot;}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -594,11 +590,11 @@
                     <span class="endpoint-desc">ID ile ilan detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">402ms</span>
+                        <span class="elapsed">1588ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;id&quot;:&quot;019d59c3-af3c-7bb6-a463-69e44497c097&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-05-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-04T18:31:29.851872Z&quot;}</div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;id&quot;:&quot;019d59d1-4cee-73e7-bc81-3817f8373a20&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-05-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:1,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-04T18:46:22.189599Z&quot;}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -608,7 +604,7 @@
                     <span class="endpoint-desc">İlan güncelle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">892ms</span>
+                        <span class="elapsed">651ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -627,7 +623,7 @@
                     <span class="endpoint-desc">İlan iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">866ms</span>
+                        <span class="elapsed">646ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -641,7 +637,7 @@
                     <span class="endpoint-desc">İlan sil</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">488ms</span>
+                        <span class="elapsed">760ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -651,7 +647,7 @@
             <div class="category-header">
                 <span class="category-icon">📩</span>
                 <h2>Applications</h2>
-                <div class="category-badge"><span class="badge badge-success">3 başarılı</span><span class="badge badge-testdata">2 test verisi</span></div>
+                <div class="category-badge"><span class="badge badge-success">5 başarılı</span></div>
             </div>
             <div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
@@ -662,28 +658,42 @@
                     <span class="endpoint-desc">İlana başvuru yap (User 2)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">444ms</span>
+                        <span class="elapsed">339ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;joinedAsGroupCount&quot;: 1,
   &quot;message&quot;: &quot;Ben de oynamak istiyorum!&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;id&quot;:&quot;019d59c3-b5f6-726f-9e39-2e3ff9dc12c5&quot;}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;id&quot;:&quot;019d59d1-5792-7388-94c1-ac574c7bbde1&quot;}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
-                    <span class="method-badge" style="background:#61affe">GET</span>
-                    <span class="endpoint-path">/api/Applications/listing/{listingId}</span>
+                    <span class="method-badge" style="background:#f93e3e">DELETE</span>
+                    <span class="endpoint-path">/api/Applications/{id}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
-                    <span class="endpoint-desc">İlanın başvurularını listele</span>
+                    <span class="endpoint-desc">Başvuruyu geri çek (User 2)</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s2xx">200</span>
-                        <span class="elapsed">633ms</span>
+                        <span class="status-code s2xx">204</span>
+                        <span class="elapsed">844ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">[{&quot;id&quot;:&quot;019d59c3-b5f6-726f-9e39-2e3ff9dc12c5&quot;,&quot;listingId&quot;:&quot;019d59c3-af3c-7bb6-a463-69e44497c097&quot;,&quot;applicantUserId&quot;:&quot;019d59c3-90f2-7510-9a69-d9274cf04afa&quot;,&quot;applicantNickname&quot;:&quot;API Test Kullanıcı 2&quot;,&quot;applicantProfilePhotoUrl&quot;:null,&quot;applicantRating&quot;:0,&quot;joinedAsGroupCount&quot;:1,&quot;message&quot;:&quot;Ben de oynamak istiyorum!&quot;,&quot;status&quot;:&quot;pending&quot;,&quot;createdAt&quot;:&quot;2026-04-04T18:31:31.569226Z&quot;}]</div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
+                <div class="endpoint-header">
+                    <div class="endpoint-status success">✅</div>
+                    <span class="method-badge" style="background:#49cc90">POST</span>
+                    <span class="endpoint-path">/api/Applications/{id}/reject</span>
+                    <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
+                    <span class="endpoint-desc">Başvuruyu reddet (User 1)</span>
+                    <div class="endpoint-meta">
+                        <span class="status-code s2xx">204</span>
+                        <span class="elapsed">678ms</span>
+                    </div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -693,47 +703,25 @@
                     <span class="endpoint-desc">Başvuruyu kabul et (User 1)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">748ms</span>
+                        <span class="elapsed">863ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
-            </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status testdata">🟡</div>
-                    <span class="method-badge" style="background:#49cc90">POST</span>
-                    <span class="endpoint-path">/api/Applications/{id}/reject</span>
+                    <div class="endpoint-status success">✅</div>
+                    <span class="method-badge" style="background:#61affe">GET</span>
+                    <span class="endpoint-path">/api/Applications/listing/{listingId}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
-                    <span class="endpoint-desc">Başvuruyu reddet</span>
+                    <span class="endpoint-desc">İlanın başvurularını listele</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">1014ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">1152ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Bu başvuru zaten işleme alınmış&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
-                    <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Başvuru zaten kabul edildi — aynı başvuru reddedilemez</p>
-                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
-                <div class="endpoint-header">
-                    <div class="endpoint-status testdata">🟡</div>
-                    <span class="method-badge" style="background:#f93e3e">DELETE</span>
-                    <span class="endpoint-path">/api/Applications/{id}</span>
-                    <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
-                    <span class="endpoint-desc">Başvuruyu sil/geri çek (User 2)</span>
-                    <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">1264ms</span>
-                    </div>
-                    <span class="expand-icon">▼</span>
-                </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Bu başvuru zaten işleme alınmış&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
-                    <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Başvuru zaten kabul edildi — kabul edilen başvuru silinemez</p>
-                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
-                </div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">[{&quot;id&quot;:&quot;019d59d1-5792-7388-94c1-ac574c7bbde1&quot;,&quot;listingId&quot;:&quot;019d59d1-4cee-73e7-bc81-3817f8373a20&quot;,&quot;applicantUserId&quot;:&quot;019d59c3-90f2-7510-9a69-d9274cf04afa&quot;,&quot;applicantNickname&quot;:&quot;API Test Kullanıcı 2&quot;,&quot;applicantProfilePhotoUrl&quot;:null,&quot;applicantRating&quot;:0,&quot;joinedAsGroupCount&quot;:1,&quot;message&quot;:&quot;Ben de oynamak istiyorum!&quot;,&quot;status&quot;:&quot;cancelled&quot;,&quot;createdAt&quot;:&quot;2026-04-04T18:46:24.914085Z&quot;},{&quot;id&quot;:&quot;019d59d1-64fb-7f89-b0a6-9fe819a0597c&quot;,&quot;listingId&quot;:&quot;019d59d1-4cee-73e7-bc81-3817f8373a20&quot;,&quot;applicantUserId&quot;:&quot;019d59c3-90f2-7510-9a69-d9274cf04afa&quot;,&quot;applicantNickname&quot;:&quot;API Test Kullanıcı 2&quot;,&quot;applicantProfilePhotoUrl&quot;:null,&quot;applicantRating&quot;:0,&quot;joinedAsGroupCount&quot;:1,&quot;message&quot;:&quot;Ben de oynamak istiyorum!&quot;,&quot;status&quot;:&quot;rejected&quot;,&quot;createdAt&quot;:&quot;2026-04-04T18:46:28.347569Z&quot;},{&quot;id&quot;:&quot;019d59d1-6940-7712-bd37-6a82d5008b20&quot;,&quot;listingId&quot;:&quot;019d59d1-4cee-73e7-bc81-3817f8373a20&quot;,&quot;applicantUserId&quot;:&quot;019d59c3-90f2-7510-9a69-d9274cf04afa&quot;,&quot;applicantNickname&quot;:&quot;API Test Kullanıcı 2&quot;,&quot;applicantProfilePhotoUrl&quot;:null,&quot;applicantRating&quot;:0,&quot;joinedAsGroupCount&quot;:1,&quot;message&quot;:&quot;Ben de oynamak istiyorum!&quot;,&quot;status&quot;:&quot;accepted&quot;,&quot;createdAt&quot;:&quot;2026-04-04T18:46:29.440565Z&quot;}]</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
@@ -750,7 +738,7 @@
                     <span class="endpoint-desc">Bildirimleri listele (paginated)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">876ms</span>
+                        <span class="elapsed">483ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -764,7 +752,7 @@
                     <span class="endpoint-desc">Okunmamış bildirimleri listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">280ms</span>
+                        <span class="elapsed">2323ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -778,7 +766,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaydet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">646ms</span>
+                        <span class="elapsed">654ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -795,7 +783,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaldır</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">2457ms</span>
+                        <span class="elapsed">347ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -811,7 +799,7 @@
                     <span class="endpoint-desc">Bildirimleri okundu işaretle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">451ms</span>
+                        <span class="elapsed">479ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -836,7 +824,7 @@
                     <span class="endpoint-desc">Ödeme işlemi başlat</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">461ms</span>
+                        <span class="elapsed">601ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -851,7 +839,7 @@
   &quot;expiryMonth&quot;: &quot;12&quot;,
   &quot;expiryYear&quot;: &quot;2027&quot;,
   &quot;cvv&quot;: &quot;123&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;success&quot;:true,&quot;transactionId&quot;:&quot;9e466560c0e2495c86c52908ccc26a66&quot;,&quot;errorMessage&quot;:null,&quot;status&quot;:&quot;completed&quot;,&quot;requires3DSecure&quot;:false,&quot;threeDSecureUrl&quot;:null,&quot;threeDSecureHtml&quot;:null}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;success&quot;:true,&quot;transactionId&quot;:&quot;aef2b8f9a2a1449da01404072cbdc54b&quot;,&quot;errorMessage&quot;:null,&quot;status&quot;:&quot;completed&quot;,&quot;requires3DSecure&quot;:false,&quot;threeDSecureUrl&quot;:null,&quot;threeDSecureHtml&quot;:null}</div></div></div></div>
             </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status testdata">🟡</div>
@@ -861,7 +849,7 @@
                     <span class="endpoint-desc">3D Secure callback işlemi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">433ms</span>
+                        <span class="elapsed">854ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -883,7 +871,7 @@
                     <span class="endpoint-desc">3D Secure doğrulama (mock)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">434ms</span>
+                        <span class="elapsed">446ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -951,18 +939,18 @@
                     <span class="endpoint-desc">Oyuncu değerlendirmesi oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">1512ms</span>
+                        <span class="elapsed">899ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;roomId&quot;: &quot;00000000-0000-0000-0000-000000000001&quot;,
-  &quot;toUserId&quot;: &quot;00000000-0000-0000-0000-000000000002&quot;,
+  &quot;toUserId&quot;: &quot;019d59c3-90f2-7510-9a69-d9274cf04afa&quot;,
   &quot;score&quot;: 5,
   &quot;comment&quot;: &quot;Harika bir oyuncu!&quot;
 }</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Maç odası bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
                     <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Dummy room/user ID kullanıldı — gerçek maç odası yok</p>
+                    <p><strong>Sebep:</strong> Geçerli room ID bulunamadı veya değerlendirme koşulları sağlanmadı</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
@@ -974,7 +962,7 @@
                     <span class="endpoint-desc">Kullanıcının aldığı değerlendirmeler</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">435ms</span>
+                        <span class="elapsed">695ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -995,13 +983,13 @@
                     <span class="endpoint-desc">Maç odası detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">434ms</span>
+                        <span class="elapsed">989ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 404</h4><div class="code-block">{&quot;message&quot;:&quot;Maç odası bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
                     <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Dummy room ID kullanıldı — henüz maç oluşturulmadı</p>
+                    <p><strong>Sebep:</strong> Geçerli room ID bulunamadı</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
             </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
@@ -1013,13 +1001,13 @@
                     <span class="endpoint-desc">Maça katılım onayla</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">406ms</span>
+                        <span class="elapsed">1386ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Bu maç odasında katılımcı değilsiniz&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
                     <h4>🟡 Test Verisi Limitasyonu</h4>
-                    <p><strong>Sebep:</strong> Dummy room ID kullanıldı — katılımcı değilsiniz</p>
+                    <p><strong>Sebep:</strong> Geçerli room ID bulunamadı</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
             </div>
@@ -1038,7 +1026,7 @@
                     <span class="endpoint-desc">Abonelik planlarını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">439ms</span>
+                        <span class="elapsed">632ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1052,7 +1040,7 @@
                     <span class="endpoint-desc">Mevcut aboneliğini getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">387ms</span>
+                        <span class="elapsed">404ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1066,7 +1054,7 @@
                     <span class="endpoint-desc">Abonelik oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">390ms</span>
+                        <span class="elapsed">963ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1088,7 +1076,7 @@
                     <span class="endpoint-desc">Aboneliği iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">1760ms</span>
+                        <span class="elapsed">4855ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1106,13 +1094,13 @@
                     <span class="endpoint-desc">İlanı öne çıkar (boost)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">736ms</span>
+                        <span class="elapsed">865ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;durationHours&quot;: 24
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Aktif aboneliğiniz yok&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
                     <h4>🟡 Test Verisi Limitasyonu</h4>
                     <p><strong>Sebep:</strong> İlan oluşturulamadı → boost yapılacak ilan yok</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
