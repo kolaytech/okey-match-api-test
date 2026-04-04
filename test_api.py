@@ -18,6 +18,7 @@ BASE_URL = "https://okey-api.kolaytech.com"
 RESULTS = []
 ACCESS_TOKEN = None
 REFRESH_TOKEN = None
+USER2_TOKEN = None
 CREATED_LISTING_ID = None
 CREATED_APP_ID = None
 CURRENT_USER_ID = None
@@ -148,6 +149,28 @@ def test_auth():
             ACCESS_TOKEN = data.get('accessToken', ACCESS_TOKEN)
             REFRESH_TOKEN = data.get('refreshToken', REFRESH_TOKEN)
         except: pass
+
+    # ── User 2: Register/Login (for cross-user application tests) ──
+    global USER2_TOKEN
+    print("\n    👥 User 2 kaydı (başvuru testi için)...")
+    body2 = {"phone": "+905559876543", "password": "Test123456!", "fullName": "API Test Kullanıcı 2", "email": "apitest2@okeymatch.com"}
+    code2, resp2, ms2 = make_request("POST", "/api/Auth/register", body2, headers={})
+    if code2 == 200:
+        try:
+            USER2_TOKEN = json.loads(resp2).get('accessToken')
+            print(f"    🔑 User 2 kaydedildi ve token alındı!")
+        except: pass
+    else:
+        # Already registered, try login
+        body2_login = {"phone": "+905559876543", "password": "Test123456!"}
+        code2, resp2, ms2 = make_request("POST", "/api/Auth/login", body2_login, headers={})
+        if code2 == 200:
+            try:
+                USER2_TOKEN = json.loads(resp2).get('accessToken')
+                print(f"    🔑 User 2 login yapıldı ve token alındı!")
+            except: pass
+        else:
+            print(f"    ⚠️ User 2 oluşturulamadı (code={code2})")
 
 def test_users():
     global CURRENT_USER_ID
@@ -287,16 +310,34 @@ def test_listings_cleanup():
                fail_type="cascade" if (no_listing and code >= 400) else None, fail_reason="POST /api/Listings başarısız → gerçek ilan ID'si yok")
 
 def test_applications():
-    global CREATED_APP_ID
+    global CREATED_APP_ID, ACCESS_TOKEN
     print("\n📌 APPLICATIONS Endpoints")
     print("─" * 50)
     test_listing_id = CREATED_LISTING_ID or "00000000-0000-0000-0000-000000000001"
+    user1_token = ACCESS_TOKEN  # Save User 1 token
+
+    # ── User 2 applies to User 1's listing ──
+    if USER2_TOKEN and CREATED_LISTING_ID:
+        ACCESS_TOKEN = USER2_TOKEN  # Switch to User 2
+        print("    👥 User 2 olarak başvuru yapılıyor...")
 
     body = {"joinedAsGroupCount": 1, "message": "Ben de oynamak istiyorum!"}
     code, resp, ms = make_request("POST", f"/api/Applications/apply/{test_listing_id}", body)
-    add_result("Applications", "POST", "/api/Applications/apply/{listingId}", code, resp, "İlana başvuru yap", True, body, ms,
-               fail_type="test_data" if (CREATED_LISTING_ID and code == 400) else ("cascade" if (CREATED_LISTING_ID is None and code >= 400) else None),
-               fail_reason="Kendi ilanınıza başvuru yapılamaz — tek kullanıcı testi" if (CREATED_LISTING_ID and code == 400) else "POST /api/Listings başarısız → geçerli ilan yok")
+    # Determine fail type
+    apply_fail = None
+    apply_reason = ""
+    if code >= 400:
+        if CREATED_LISTING_ID is None:
+            apply_fail = "cascade"
+            apply_reason = "POST /api/Listings başarısız → geçerli ilan yok"
+        elif not USER2_TOKEN:
+            apply_fail = "test_data"
+            apply_reason = "Kendi ilanınıza başvuru yapılamaz — 2. kullanıcı oluşturulamadı"
+        else:
+            apply_fail = "test_data"
+            apply_reason = "Başvuru başarısız — muhtemelen daha önce başvuru yapılmış"
+    add_result("Applications", "POST", "/api/Applications/apply/{listingId}", code, resp, "İlana başvuru yap (User 2)", True, body, ms,
+               fail_type=apply_fail, fail_reason=apply_reason)
     if 200 <= code <= 201:
         try:
             parsed = resp.strip().strip('"')
@@ -305,22 +346,39 @@ def test_applications():
                 CREATED_APP_ID = data.get('id', parsed)
             else:
                 CREATED_APP_ID = parsed
+            print(f"    📨 Application ID: {CREATED_APP_ID}")
         except: pass
+
+    # ── Switch back to User 1 for listing-level queries ──
+    ACCESS_TOKEN = user1_token
 
     code, resp, ms = make_request("GET", f"/api/Applications/listing/{test_listing_id}")
     add_result("Applications", "GET", "/api/Applications/listing/{listingId}", code, resp, "İlanın başvurularını listele", True, None, ms,
                fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else None, fail_reason="POST /api/Listings başarısız → geçerli ilan yok")
 
+    # ── User 1 accepts the application ──
     test_app_id = CREATED_APP_ID or "00000000-0000-0000-0000-000000000001"
+    no_app = CREATED_APP_ID is None
     code, resp, ms = make_request("POST", f"/api/Applications/{test_app_id}/accept")
-    add_result("Applications", "POST", "/api/Applications/{id}/accept", code, resp, "Başvuruyu kabul et", True, None, ms,
-               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → kabul edilecek başvuru yok")
+    add_result("Applications", "POST", "/api/Applications/{id}/accept", code, resp, "Başvuruyu kabul et (User 1)", True, None, ms,
+               fail_type="cascade" if (no_app and code >= 400) else None, fail_reason="Başvuru oluşturulamadı → kabul edilecek başvuru yok")
+
+    # ── Reject: already accepted, so expected to fail ──
     code, resp, ms = make_request("POST", f"/api/Applications/{test_app_id}/reject")
     add_result("Applications", "POST", "/api/Applications/{id}/reject", code, resp, "Başvuruyu reddet", True, None, ms,
-               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → reddedilecek başvuru yok")
+               fail_type="test_data" if (not no_app and code >= 400) else ("cascade" if (no_app and code >= 400) else None),
+               fail_reason="Başvuru zaten kabul edildi — aynı başvuru reddedilemez" if not no_app else "Başvuru oluşturulamadı")
+
+    # ── Delete: User 2 cancels own application ──
+    if USER2_TOKEN:
+        ACCESS_TOKEN = USER2_TOKEN  # Switch to User 2
     code, resp, ms = make_request("DELETE", f"/api/Applications/{test_app_id}")
-    add_result("Applications", "DELETE", "/api/Applications/{id}", code, resp, "Başvuruyu sil/geri çek", True, None, ms,
-               fail_type="cascade" if code >= 400 else None, fail_reason="Başvuru oluşturulamadı → silinecek başvuru yok")
+    add_result("Applications", "DELETE", "/api/Applications/{id}", code, resp, "Başvuruyu sil/geri çek (User 2)", True, None, ms,
+               fail_type="test_data" if (not no_app and code >= 400) else ("cascade" if (no_app and code >= 400) else None),
+               fail_reason="Başvuru zaten kabul edildi — kabul edilen başvuru silinemez" if not no_app else "Başvuru oluşturulamadı")
+
+    # ── Restore User 1 token for remaining tests ──
+    ACCESS_TOKEN = user1_token
 
 def test_notifications():
     print("\n📌 NOTIFICATIONS Endpoints")
