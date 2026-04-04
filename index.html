@@ -147,17 +147,17 @@
         <div class="header">
             <h1>🎯 OkeyAdvert API Test Raporu</h1>
             <p class="subtitle">Tüm endpoint'lerin otomatik test sonuçları</p>
-            <p class="test-date">Test tarihi: 04 April 2026, 03:18:20</p>
+            <p class="test-date">Test tarihi: 04 April 2026, 17:53:09</p>
             <p class="test-date">Base URL: https://okey-api.kolaytech.com</p>
         </div>
 
         <div class="summary">
             <div class="summary-card total"><div class="number">46</div><div class="label">Toplam</div></div>
-            <div class="summary-card success"><div class="number">21</div><div class="label">Başarılı ✅</div></div>
-            <div class="summary-card failed"><div class="number">6</div><div class="label">Backend 🔴</div></div>
-            <div class="summary-card cascade"><div class="number">10</div><div class="label">Cascade 🟠</div></div>
-            <div class="summary-card testdata"><div class="number">9</div><div class="label">Test Verisi 🟡</div></div>
-            <div class="summary-card rate"><div class="number">46%</div><div class="label">Başarı</div></div>
+            <div class="summary-card success"><div class="number">30</div><div class="label">Başarılı ✅</div></div>
+            <div class="summary-card failed"><div class="number">2</div><div class="label">Backend 🔴</div></div>
+            <div class="summary-card cascade"><div class="number">3</div><div class="label">Cascade 🟠</div></div>
+            <div class="summary-card testdata"><div class="number">11</div><div class="label">Test Verisi 🟡</div></div>
+            <div class="summary-card rate"><div class="number">65%</div><div class="label">Başarı</div></div>
         </div>
 
         <div class="spec-analysis">
@@ -207,10 +207,10 @@
 
         <div class="filter-bar">
             <button class="filter-btn active" onclick="filterResults('all', this)">Tümü (46)</button>
-            <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı (21)</button>
-            <button class="filter-btn" onclick="filterResults('backend_bug', this)">🔴 Backend (6)</button>
-            <button class="filter-btn" onclick="filterResults('cascade', this)">🟠 Cascade (10)</button>
-            <button class="filter-btn" onclick="filterResults('test_data', this)">🟡 Test Verisi (9)</button>
+            <button class="filter-btn" onclick="filterResults('success', this)">✅ Başarılı (30)</button>
+            <button class="filter-btn" onclick="filterResults('backend_bug', this)">🔴 Backend (2)</button>
+            <button class="filter-btn" onclick="filterResults('cascade', this)">🟠 Cascade (3)</button>
+            <button class="filter-btn" onclick="filterResults('test_data', this)">🟡 Test Verisi (11)</button>
         </div>
 
         <div class="category">
@@ -228,7 +228,7 @@
                     <span class="endpoint-desc">API dökümantasyonu erişimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">446ms</span>
+                        <span class="elapsed">574ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -249,7 +249,7 @@
                     <span class="endpoint-desc">Yeni kullanıcı kaydı</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">409ms</span>
+                        <span class="elapsed">790ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -272,14 +272,14 @@
                     <span class="endpoint-desc">Kullanıcı girişi (phone + password)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">632ms</span>
+                        <span class="elapsed">972ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;phone&quot;: &quot;+905551234567&quot;,
   &quot;password&quot;: &quot;Test123456!&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI4OThjMGExNi1hMTYyLTRlNTYtYTcyYS0zNjgzNGVmN2FmMTIiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI2NTQ4MSwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.wx4Lsfn3imkCJtSVZ2A9c9lSNuqdxs3i9eo84fqHwzk&quot;,&quot;refreshToken&quot;:&quot;68f954bf5c9249dfb884e3f3ce4aed509fe986869a914d68969adc0cda07d783&quot;,&quot;phoneVerified&quot;:false,&quot;profileCompleted&quot;:false}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiJjM2M0ZTlkYS0yY2Y1LTRjZGItYTJmYS1kNDBmN2VmOTg2MTAiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMxNzk3MSwiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.LAuvQYffi5MnwNjFLJkr1wIZBZmnlUYd_8VBmss_4PM&quot;,&quot;refreshToken&quot;:&quot;d53667d0a0dc41feb6da097b1f004260d64a7718dc464ca39828eecd9b585421&quot;,&quot;phoneVerified&quot;:false,&quot;profileCompleted&quot;:false}</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -289,7 +289,7 @@
                     <span class="endpoint-desc">SMS ile OTP kodu gönderme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">382ms</span>
+                        <span class="elapsed">400ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -305,7 +305,7 @@
                     <span class="endpoint-desc">OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">728ms</span>
+                        <span class="elapsed">397ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -326,19 +326,19 @@
                     <span class="endpoint-desc">Access token yenileme</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">632ms</span>
+                        <span class="elapsed">396ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
-  &quot;refreshToken&quot;: &quot;68f954bf5c9249dfb884e3f3ce4aed509fe986869a914d68969adc0cda07d783&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI2OGE1OTY4Ni04Y2Y2LTQyNTAtYjkxYi1jZWY5NWE3MGYyMWYiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTI2NTQ4MywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.uw_4Ol2pm9KWfpOXMJiyki4kKhZUcx_pEA05MaVETd8&quot;,&quot;refreshToken&quot;:&quot;a71f25b11443471e903d172f7e9127f8222f302aa1e24b689482e9a2bb84d6b1&quot;}</div></div></div></div>
+  &quot;refreshToken&quot;: &quot;d53667d0a0dc41feb6da097b1f004260d64a7718dc464ca39828eecd9b585421&quot;
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;accessToken&quot;:&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMTlkNDk5YS05YzlmLTc3MDktOWIzYS02ZDU2OWQwNTU4NTgiLCJ1bmlxdWVfbmFtZSI6Iis5MDU1NTEyMzQ1NjciLCJqdGkiOiI0NWM4YjA0Yy0yN2E0LTQ0YWUtODNhOC1lNTJiYTVkMmI5MWEiLCJwaG9uZSI6Iis5MDU1NTEyMzQ1NjciLCJwcm9maWxlQ29tcGxldGVkIjoiRmFsc2UiLCJlbWFpbCI6InRlc3RAb2tleW1hdGNoLmNvbSIsImV4cCI6MTc3NTMxNzk3MywiaXNzIjoiT2tleUFkdmVydCIsImF1ZCI6Ik9rZXlBZHZlcnRVc2VycyJ9.hj5Q1n04gY6ehn8isyh_jraSq2UYcORgxK9O_8yIbbI&quot;,&quot;refreshToken&quot;:&quot;92927f1ac61d44d5b362d306d69eaeb72c9b2b4889aa4d04b0b2afb75c0e22a3&quot;}</div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
                 <span class="category-icon">👤</span>
                 <h2>Users</h2>
-                <div class="category-badge"><span class="badge badge-success">6 başarılı</span><span class="badge badge-fail">2 backend</span><span class="badge badge-testdata">1 test verisi</span></div>
+                <div class="category-badge"><span class="badge badge-success">7 başarılı</span><span class="badge badge-fail">1 backend</span><span class="badge badge-testdata">1 test verisi</span></div>
             </div>
             <div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
@@ -363,7 +363,7 @@
                     <span class="endpoint-desc">Profil güncelleme + onboarding</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">731ms</span>
+                        <span class="elapsed">288ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -384,7 +384,7 @@
                     <span class="endpoint-desc">Başka kullanıcının public profili</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">371ms</span>
+                        <span class="elapsed">388ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -398,7 +398,7 @@
                     <span class="endpoint-desc">Email OTP gönderimi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">641ms</span>
+                        <span class="elapsed">311ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -418,7 +418,7 @@
                     <span class="endpoint-desc">Email OTP doğrulama</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">279ms</span>
+                        <span class="elapsed">699ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -430,24 +430,20 @@
                     <p><strong>Sebep:</strong> Sahte OTP kodu kullanıldı — gerçek email kodu olmadan doğrulama yapılamaz</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
-            </div><div class="endpoint backend-bug-row" data-success="false" data-failtype="backend_bug" onclick="this.classList.toggle('expanded')">
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status fail">🔴</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#61affe">GET</span>
                     <span class="endpoint-path">/api/Users/me/listings</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">Kullanıcının kendi ilanları</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">633ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">624ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Reading as &#x27;System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]&#x27; is not supported for fields having DataTypeName &#x27;jsonb&#x27;&quot;}</div></div><div class="detail-section"><div class="analysis-box backend-bug">
-                    <h4>🔴 Backend Hatası</h4>
-                    <p><strong>Sebep:</strong> PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu</p>
-                    <p><strong>Öneri:</strong> Backend ekibinin düzeltmesi gereken bir hatadır.</p>
-                </div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;items&quot;:[{&quot;id&quot;:&quot;019d58f0-b293-7cc8-a332-7c8cd58ced97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-05-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-04T14:41:02.612536Z&quot;}],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-04T14:41:02.609118Z&quot;},{&quot;id&quot;:&quot;019d499e-0c03-7392-82b2-6daded991a10&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-01T15:16:27.779429Z&quot;}],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-01T15:16:27.778446Z&quot;},{&quot;id&quot;:&quot;019d499d-62c7-7dea-9bed-187e91ec9a97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-... (truncated)</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -457,7 +453,7 @@
                     <span class="endpoint-desc">Kullanıcının kendi başvuruları</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">390ms</span>
+                        <span class="elapsed">636ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -471,7 +467,7 @@
                     <span class="endpoint-desc">Maç geçmişi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">627ms</span>
+                        <span class="elapsed">287ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -506,7 +502,7 @@
                     <span class="endpoint-desc">Dosya yükleme (multipart)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">693ms</span>
+                        <span class="elapsed">1020ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -522,26 +518,22 @@
             <div class="category-header">
                 <span class="category-icon">📋</span>
                 <h2>Listings</h2>
-                <div class="category-badge"><span class="badge badge-success">1 başarılı</span><span class="badge badge-fail">3 backend</span><span class="badge badge-cascade">4 cascade</span></div>
+                <div class="category-badge"><span class="badge badge-success">8 başarılı</span></div>
             </div>
-            <div class="endpoint backend-bug-row" data-success="false" data-failtype="backend_bug" onclick="this.classList.toggle('expanded')">
+            <div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status fail">🔴</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#61affe">GET</span>
                     <span class="endpoint-path">/api/Listings</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">Tüm ilanları listele (sayfalama)</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">376ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">387ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Reading as &#x27;System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]&#x27; is not supported for fields having DataTypeName &#x27;jsonb&#x27;&quot;}</div></div><div class="detail-section"><div class="analysis-box backend-bug">
-                    <h4>🔴 Backend Hatası</h4>
-                    <p><strong>Sebep:</strong> PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu</p>
-                    <p><strong>Öneri:</strong> Backend ekibinin düzeltmesi gereken bir hatadır.</p>
-                </div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;items&quot;:[{&quot;id&quot;:&quot;019d499d-62c7-7dea-9bed-187e91ec9a97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-01T15:15:44.51677Z&quot;}],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-01T15:15:44.450564Z&quot;},{&quot;id&quot;:&quot;019d499e-0c03-7392-82b2-6daded991a10&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-01T15:16:27.779429Z&quot;}],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-01T15:16:27.778446Z&quot;},{&quot;id&quot;:&quot;019d58f0-b293-7cc8-a332-7c8cd58ced97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-05-1... (truncated)</div></div></div></div>
             </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status success">✅</div>
@@ -551,39 +543,35 @@
                     <span class="endpoint-desc">Filtrelenmiş ilan listesi (City, Level)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">281ms</span>
+                        <span class="elapsed">627ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;items&quot;:[],&quot;page&quot;:1,&quot;pageSize&quot;:5,&quot;totalCount&quot;:0,&quot;totalPages&quot;:0}</div></div></div></div>
-            </div><div class="endpoint backend-bug-row" data-success="false" data-failtype="backend_bug" onclick="this.classList.toggle('expanded')">
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status fail">🔴</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#61affe">GET</span>
                     <span class="endpoint-path">/api/Listings?geo</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">Konum bazlı ilan arama (Lat, Lng, Radius)</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">309ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">414ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Reading as &#x27;System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]&#x27; is not supported for fields having DataTypeName &#x27;jsonb&#x27;&quot;}</div></div><div class="detail-section"><div class="analysis-box backend-bug">
-                    <h4>🔴 Backend Hatası</h4>
-                    <p><strong>Sebep:</strong> PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu</p>
-                    <p><strong>Öneri:</strong> Backend ekibinin düzeltmesi gereken bir hatadır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint backend-bug-row" data-success="false" data-failtype="backend_bug" onclick="this.classList.toggle('expanded')">
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;items&quot;:[{&quot;id&quot;:&quot;019d499d-62c7-7dea-9bed-187e91ec9a97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-01T15:15:44.51677Z&quot;}],&quot;distance&quot;:4.242401235706414,&quot;createdAt&quot;:&quot;2026-04-01T15:15:44.450564Z&quot;},{&quot;id&quot;:&quot;019d499e-0c03-7392-82b2-6daded991a10&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-04-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[{&quot;userId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;nickname&quot;:&quot;api_tester&quot;,&quot;profilePhotoUrl&quot;:null,&quot;joinedAt&quot;:&quot;2026-04-01T15:16:27.779429Z&quot;}],&quot;distance&quot;:4.242401235706414,&quot;createdAt&quot;:&quot;2026-04-01T15:16:27.778446Z&quot;},{&quot;id&quot;:&quot;019d58f0-b293-7cc8-a332-7c8cd58ced97&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahveh... (truncated)</div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status fail">🔴</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#49cc90">POST</span>
                     <span class="endpoint-path">/api/Listings</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">Yeni ilan oluştur</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">397ms</span>
+                        <span class="status-code s2xx">201</span>
+                        <span class="elapsed">660ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -600,39 +588,31 @@
   &quot;level&quot;: &quot;mid&quot;,
   &quot;minAge&quot;: 18,
   &quot;maxAge&quot;: 50
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;An error occurred while saving the entity changes. See the inner exception for details.&quot;}</div></div><div class="detail-section"><div class="analysis-box backend-bug">
-                    <h4>🔴 Backend Hatası</h4>
-                    <p><strong>Sebep:</strong> Entity Framework DB save hatası — migration veya constraint sorunu</p>
-                    <p><strong>Öneri:</strong> Backend ekibinin düzeltmesi gereken bir hatadır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 201</h4><div class="code-block">{&quot;id&quot;:&quot;019d58fb-a395-74f0-aa47-ade56c592557&quot;}</div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#61affe">GET</span>
                     <span class="endpoint-path">/api/Listings/{id}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">ID ile ilan detayı getir</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">404</span>
-                        <span class="elapsed">280ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">647ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 404</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → gerçek ilan ID'si yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;id&quot;:&quot;019d58fb-a395-74f0-aa47-ade56c592557&quot;,&quot;ownerId&quot;:&quot;019d499a-9c9f-7709-9b3a-6d569d055858&quot;,&quot;ownerNickname&quot;:&quot;api_tester&quot;,&quot;ownerProfilePhotoUrl&quot;:null,&quot;ownerRating&quot;:0,&quot;ownerTotalMatches&quot;:0,&quot;ownerVerified&quot;:false,&quot;ownerTrustScore&quot;:0,&quot;title&quot;:&quot;Test Okey Partisi&quot;,&quot;description&quot;:&quot;API testi için oluşturulmuş ilan&quot;,&quot;city&quot;:&quot;İstanbul&quot;,&quot;district&quot;:&quot;Kadıköy&quot;,&quot;lat&quot;:40.9833,&quot;lng&quot;:29.0167,&quot;placeName&quot;:&quot;Test Kahvehane&quot;,&quot;dateTime&quot;:&quot;2026-05-10T14:00:00Z&quot;,&quot;playerNeeded&quot;:3,&quot;maxPlayers&quot;:4,&quot;level&quot;:&quot;mid&quot;,&quot;status&quot;:&quot;open&quot;,&quot;visibility&quot;:&quot;normal&quot;,&quot;minAge&quot;:18,&quot;maxAge&quot;:50,&quot;currentPlayerCount&quot;:1,&quot;participants&quot;:[],&quot;distance&quot;:null,&quot;createdAt&quot;:&quot;2026-04-04T14:52:59.668743Z&quot;}</div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#fca130">PUT</span>
                     <span class="endpoint-path">/api/Listings/{id}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlan güncelle</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">273ms</span>
+                        <span class="status-code s2xx">204</span>
+                        <span class="elapsed">411ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -641,93 +621,77 @@
   &quot;description&quot;: &quot;Güncellenmiş açıklama&quot;,
   &quot;playerNeeded&quot;: 2,
   &quot;level&quot;: &quot;advanced&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → gerçek ilan ID'si yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#50e3c2">PATCH</span>
                     <span class="endpoint-path">/api/Listings/{id}/cancel</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlan iptal et</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">297ms</span>
+                        <span class="status-code s2xx">204</span>
+                        <span class="elapsed">300ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → gerçek ilan ID'si yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
-                </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#f93e3e">DELETE</span>
                     <span class="endpoint-path">/api/Listings/{id}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlan sil</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">688ms</span>
+                        <span class="status-code s2xx">204</span>
+                        <span class="elapsed">292ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → gerçek ilan ID'si yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
-                </div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 204</h4><div class="code-block"></div></div></div></div>
             </div>
         </div><div class="category">
             <div class="category-header">
                 <span class="category-icon">📩</span>
                 <h2>Applications</h2>
-                <div class="category-badge"><span class="badge badge-cascade">5 cascade</span></div>
+                <div class="category-badge"><span class="badge badge-success">1 başarılı</span><span class="badge badge-cascade">3 cascade</span><span class="badge badge-testdata">1 test verisi</span></div>
             </div>
-            <div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+            <div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status testdata">🟡</div>
                     <span class="method-badge" style="background:#49cc90">POST</span>
                     <span class="endpoint-path">/api/Applications/apply/{listingId}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlana başvuru yap</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">293ms</span>
+                        <span class="elapsed">656ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;joinedAsGroupCount&quot;: 1,
   &quot;message&quot;: &quot;Ben de oynamak istiyorum!&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → geçerli ilan yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;Kendi ilanınıza başvuru yapamazsınız&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
+                    <h4>🟡 Test Verisi Limitasyonu</h4>
+                    <p><strong>Sebep:</strong> Kendi ilanınıza başvuru yapılamaz — tek kullanıcı testi</p>
+                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+            </div><div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status success">✅</div>
                     <span class="method-badge" style="background:#61affe">GET</span>
                     <span class="endpoint-path">/api/Applications/listing/{listingId}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlanın başvurularını listele</span>
                     <div class="endpoint-meta">
-                        <span class="status-code s4xx">400</span>
-                        <span class="elapsed">269ms</span>
+                        <span class="status-code s2xx">200</span>
+                        <span class="elapsed">337ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
-                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
-                    <p><strong>Sebep:</strong> POST /api/Listings başarısız → geçerli ilan yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
-                </div></div></div></div>
+                <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">[]</div></div></div></div>
             </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status cascade">🟠</div>
@@ -737,7 +701,7 @@
                     <span class="endpoint-desc">Başvuruyu kabul et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">275ms</span>
+                        <span class="elapsed">656ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -755,7 +719,7 @@
                     <span class="endpoint-desc">Başvuruyu reddet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">652ms</span>
+                        <span class="elapsed">294ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -773,7 +737,7 @@
                     <span class="endpoint-desc">Başvuruyu sil/geri çek</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">288ms</span>
+                        <span class="elapsed">633ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -798,7 +762,7 @@
                     <span class="endpoint-desc">Bildirimleri listele (paginated)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">277ms</span>
+                        <span class="elapsed">571ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -812,7 +776,7 @@
                     <span class="endpoint-desc">Okunmamış bildirimleri listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">635ms</span>
+                        <span class="elapsed">297ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -826,7 +790,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaydet</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">395ms</span>
+                        <span class="elapsed">290ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -843,7 +807,7 @@
                     <span class="endpoint-desc">FCM cihaz token kaldır</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">629ms</span>
+                        <span class="elapsed">296ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -859,7 +823,7 @@
                     <span class="endpoint-desc">Bildirimleri okundu işaretle</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">289ms</span>
+                        <span class="elapsed">288ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -884,7 +848,7 @@
                     <span class="endpoint-desc">Ödeme işlemi başlat</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">634ms</span>
+                        <span class="elapsed">301ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -899,7 +863,7 @@
   &quot;expiryMonth&quot;: &quot;12&quot;,
   &quot;expiryYear&quot;: &quot;2027&quot;,
   &quot;cvv&quot;: &quot;123&quot;
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;success&quot;:true,&quot;transactionId&quot;:&quot;dc75fb819ad44cf4aaaba2c4ab3e7c95&quot;,&quot;errorMessage&quot;:null,&quot;status&quot;:&quot;completed&quot;,&quot;requires3DSecure&quot;:false,&quot;threeDSecureUrl&quot;:null,&quot;threeDSecureHtml&quot;:null}</div></div></div></div>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 200</h4><div class="code-block">{&quot;success&quot;:true,&quot;transactionId&quot;:&quot;907d49ae06284f74b9bf7bad3225298d&quot;,&quot;errorMessage&quot;:null,&quot;status&quot;:&quot;completed&quot;,&quot;requires3DSecure&quot;:false,&quot;threeDSecureUrl&quot;:null,&quot;threeDSecureHtml&quot;:null}</div></div></div></div>
             </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
                     <div class="endpoint-status testdata">🟡</div>
@@ -909,7 +873,7 @@
                     <span class="endpoint-desc">3D Secure callback işlemi</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">272ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -931,7 +895,7 @@
                     <span class="endpoint-desc">3D Secure doğrulama (mock)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">635ms</span>
+                        <span class="elapsed">282ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -999,7 +963,7 @@
                     <span class="endpoint-desc">Oyuncu değerlendirmesi oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">282ms</span>
+                        <span class="elapsed">310ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1022,7 +986,7 @@
                     <span class="endpoint-desc">Kullanıcının aldığı değerlendirmeler</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">636ms</span>
+                        <span class="elapsed">304ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1043,7 +1007,7 @@
                     <span class="endpoint-desc">Maç odası detayı getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">404</span>
-                        <span class="elapsed">281ms</span>
+                        <span class="elapsed">301ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1061,7 +1025,7 @@
                     <span class="endpoint-desc">Maça katılım onayla</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">658ms</span>
+                        <span class="elapsed">289ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1075,7 +1039,7 @@
             <div class="category-header">
                 <span class="category-icon">💎</span>
                 <h2>Subscriptions</h2>
-                <div class="category-badge"><span class="badge badge-success">2 başarılı</span><span class="badge badge-cascade">1 cascade</span><span class="badge badge-testdata">2 test verisi</span></div>
+                <div class="category-badge"><span class="badge badge-success">2 başarılı</span><span class="badge badge-testdata">3 test verisi</span></div>
             </div>
             <div class="endpoint" data-success="true" data-failtype="none" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
@@ -1086,7 +1050,7 @@
                     <span class="endpoint-desc">Abonelik planlarını listele</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">200</span>
-                        <span class="elapsed">620ms</span>
+                        <span class="elapsed">312ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1100,7 +1064,7 @@
                     <span class="endpoint-desc">Mevcut aboneliğini getir</span>
                     <div class="endpoint-meta">
                         <span class="status-code s2xx">204</span>
-                        <span class="elapsed">279ms</span>
+                        <span class="elapsed">283ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1114,7 +1078,7 @@
                     <span class="endpoint-desc">Abonelik oluştur</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">298ms</span>
+                        <span class="elapsed">280ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1136,7 +1100,7 @@
                     <span class="endpoint-desc">Aboneliği iptal et</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">275ms</span>
+                        <span class="elapsed">622ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
@@ -1145,25 +1109,25 @@
                     <p><strong>Sebep:</strong> Kullanıcının aktif aboneliği yok</p>
                     <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
-            </div><div class="endpoint cascade-fail-row" data-success="false" data-failtype="cascade" onclick="this.classList.toggle('expanded')">
+            </div><div class="endpoint test-data-row" data-success="false" data-failtype="test_data" onclick="this.classList.toggle('expanded')">
                 <div class="endpoint-header">
-                    <div class="endpoint-status cascade">🟠</div>
+                    <div class="endpoint-status testdata">🟡</div>
                     <span class="method-badge" style="background:#49cc90">POST</span>
                     <span class="endpoint-path">/api/Subscriptions/boost/{listingId}</span>
                     <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;border:1px solid rgba(59,130,246,0.2);font-size:0.65rem;">🔒 AUTH</span>
                     <span class="endpoint-desc">İlanı öne çıkar (boost)</span>
                     <div class="endpoint-meta">
                         <span class="status-code s4xx">400</span>
-                        <span class="elapsed">294ms</span>
+                        <span class="elapsed">285ms</span>
                     </div>
                     <span class="expand-icon">▼</span>
                 </div>
                 <div class="endpoint-details"><div class="details-content"><div class="detail-section"><h4>📤 İstek Gövdesi (Request Body)</h4><div class="code-block">{
   &quot;durationHours&quot;: 24
-}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box cascade-fail">
-                    <h4>🟠 Cascade Fail (Zincirleme Hata)</h4>
+}</div></div><div class="detail-section"><h4>📥 Yanıt (Response) — HTTP 400</h4><div class="code-block">{&quot;message&quot;:&quot;İlan bulunamadı&quot;}</div></div><div class="detail-section"><div class="analysis-box test-data">
+                    <h4>🟡 Test Verisi Limitasyonu</h4>
                     <p><strong>Sebep:</strong> İlan oluşturulamadı → boost yapılacak ilan yok</p>
-                    <p><strong>Not:</strong> Bağımlı endpoint düzeltildiğinde bu test otomatik başarılı olacaktır.</p>
+                    <p><strong>Not:</strong> Bu bir backend hatası değil, test ortamı sınırlamasıdır.</p>
                 </div></div></div></div>
             </div>
         </div>

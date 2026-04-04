@@ -253,7 +253,13 @@ def test_listings():
                fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — migration veya constraint sorunu")
     if 200 <= code <= 201:
         try:
-            CREATED_LISTING_ID = resp.strip().strip('"')
+            # Response can be plain UUID or JSON {"id": "uuid"}
+            parsed = resp.strip().strip('"')
+            if parsed.startswith('{'):
+                data = json.loads(resp)
+                CREATED_LISTING_ID = data.get('id', parsed)
+            else:
+                CREATED_LISTING_ID = parsed
             print(f"    📋 Listing ID: {CREATED_LISTING_ID}")
         except: pass
 
@@ -289,10 +295,16 @@ def test_applications():
     body = {"joinedAsGroupCount": 1, "message": "Ben de oynamak istiyorum!"}
     code, resp, ms = make_request("POST", f"/api/Applications/apply/{test_listing_id}", body)
     add_result("Applications", "POST", "/api/Applications/apply/{listingId}", code, resp, "İlana başvuru yap", True, body, ms,
-               fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else None, fail_reason="POST /api/Listings başarısız → geçerli ilan yok")
+               fail_type="test_data" if (CREATED_LISTING_ID and code == 400) else ("cascade" if (CREATED_LISTING_ID is None and code >= 400) else None),
+               fail_reason="Kendi ilanınıza başvuru yapılamaz — tek kullanıcı testi" if (CREATED_LISTING_ID and code == 400) else "POST /api/Listings başarısız → geçerli ilan yok")
     if 200 <= code <= 201:
         try:
-            CREATED_APP_ID = resp.strip().strip('"')
+            parsed = resp.strip().strip('"')
+            if parsed.startswith('{'):
+                data = json.loads(resp)
+                CREATED_APP_ID = data.get('id', parsed)
+            else:
+                CREATED_APP_ID = parsed
         except: pass
 
     code, resp, ms = make_request("GET", f"/api/Applications/listing/{test_listing_id}")
