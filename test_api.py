@@ -21,6 +21,8 @@ ACCESS_TOKEN = None
 REFRESH_TOKEN = None
 USER2_TOKEN = None
 USER2_ID = None
+USER3_TOKEN = None
+USER4_TOKEN = None
 CREATED_LISTING_ID = None
 CREATED_APP_ID = None
 CURRENT_USER_ID = None
@@ -155,29 +157,36 @@ def test_auth():
         except: pass
 
     # ── User 2: Register/Login (for cross-user application tests) ──
-    global USER2_TOKEN, USER2_ID
-    print("\n    👥 User 2 kaydı (başvuru testi için)...")
-    body2 = {"phone": "+905559876543", "password": "Test123456!", "fullName": "API Test Kullanıcı 2", "email": "apitest2@okeymatch.com"}
-    code2, resp2, ms2 = make_request("POST", "/api/Auth/register", body2, headers={})
-    if code2 == 200:
-        try:
-            data2 = json.loads(resp2)
-            USER2_TOKEN = data2.get('accessToken')
-            print(f"    🔑 User 2 kaydedildi ve token alındı!")
-        except: pass
-    else:
-        # Already registered, try login
-        body2_login = {"phone": "+905559876543", "password": "Test123456!"}
-        code2, resp2, ms2 = make_request("POST", "/api/Auth/login", body2_login, headers={})
-        if code2 == 200:
+    global USER2_TOKEN, USER2_ID, USER3_TOKEN, USER4_TOKEN
+    _test_users_data = [
+        ("User 2", "+905559876543", "apitest2@okeymatch.com"),
+        ("User 3", "+905558765432", "apitest3@okeymatch.com"),
+        ("User 4", "+905557654321", "apitest4@okeymatch.com"),
+    ]
+    _tokens = []
+    for uname, phone, email in _test_users_data:
+        print(f"\n    👥 {uname} kaydı...")
+        body_r = {"phone": phone, "password": "Test123456!", "fullName": f"API Test {uname}", "email": email}
+        cr, rr, mr = make_request("POST", "/api/Auth/register", body_r, headers={})
+        tk = None
+        if cr == 200:
             try:
-                data2 = json.loads(resp2)
-                USER2_TOKEN = data2.get('accessToken')
-                print(f"    🔑 User 2 login yapıldı ve token alındı!")
+                tk = json.loads(rr).get('accessToken')
+                print(f"    🔑 {uname} kaydedildi!")
             except: pass
         else:
-            print(f"    ⚠️ User 2 oluşturulamadı (code={code2})")
-    # Get User 2's ID
+            cr, rr, mr = make_request("POST", "/api/Auth/login", {"phone": phone, "password": "Test123456!"}, headers={})
+            if cr == 200:
+                try:
+                    tk = json.loads(rr).get('accessToken')
+                    print(f"    🔑 {uname} login yapıldı!")
+                except: pass
+            else:
+                print(f"    ⚠️ {uname} oluşturulamadı (code={cr})")
+        _tokens.append(tk)
+    USER2_TOKEN, USER3_TOKEN, USER4_TOKEN = _tokens
+
+    # Get User 2's ID (for ratings)
     if USER2_TOKEN:
         saved_token = ACCESS_TOKEN
         ACCESS_TOKEN = USER2_TOKEN
@@ -287,7 +296,7 @@ def test_listings():
     add_result("Listings", "GET", "/api/Listings?geo", code, resp, "Konum bazlı ilan arama (Lat, Lng, Radius)", True, None, ms,
                fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
 
-    body = {"title": "Test Okey Partisi", "description": "API testi için oluşturulmuş ilan", "city": "İstanbul", "district": "Kadıköy", "lat": 40.9833, "lng": 29.0167, "placeName": "Test Kahvehane", "dateTime": "2026-05-10T14:00:00Z", "playerNeeded": 1, "level": "mid", "minAge": 18, "maxAge": 50}
+    body = {"title": "Test Okey Partisi", "description": "API testi için oluşturulmuş ilan", "city": "İstanbul", "district": "Kadıköy", "lat": 40.9833, "lng": 29.0167, "placeName": "Test Kahvehane", "dateTime": "2026-05-10T14:00:00Z", "playerNeeded": 3, "level": "mid", "minAge": 18, "maxAge": 50}
     code, resp, ms = make_request("POST", "/api/Listings", body)
     add_result("Listings", "POST", "/api/Listings", code, resp, "Yeni ilan oluştur", True, body, ms,
                fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — migration veya constraint sorunu")
@@ -415,20 +424,40 @@ def test_applications():
                fail_type="cascade" if (not app_id_3 and code >= 400) else None,
                fail_reason="Başvuru oluşturulamadı" if not app_id_3 else "")
 
+    # ── Step 4: User 3 applies → User 1 ACCEPTS (ilanı doldurmak için) ──
+    if USER3_TOKEN and CREATED_LISTING_ID:
+        print("    👥 User 3 başvuruyor (ilan doldurmak için)...")
+        c4, r4, m4, app_id_4 = _apply_user2(test_listing_id, user1_token, USER3_TOKEN, True)
+        if app_id_4:
+            code, resp, ms = make_request("POST", f"/api/Applications/{app_id_4}/accept")
+            if 200 <= code <= 204:
+                print(f"    ✅ User 3 kabul edildi (3/4)")
+
+    # ── Step 5: User 4 applies → User 1 ACCEPTS (ilan tam doluyor → Room oluşur!) ──
+    if USER4_TOKEN and CREATED_LISTING_ID:
+        print("    👥 User 4 başvuruyor (ilanı doldurma - Room oluşacak!)...")
+        c5, r5, m5, app_id_5 = _apply_user2(test_listing_id, user1_token, USER4_TOKEN, True)
+        if app_id_5:
+            code, resp, ms = make_request("POST", f"/api/Applications/{app_id_5}/accept")
+            if 200 <= code <= 204:
+                print(f"    ✅ User 4 kabul edildi (4/4) — Room oluşmalı!")
+
     # ── List applications (User 1) ──
     code, resp, ms = make_request("GET", f"/api/Applications/listing/{test_listing_id}")
     add_result("Applications", "GET", "/api/Applications/listing/{listingId}", code, resp, "İlanın başvurularını listele", True, None, ms,
                fail_type="cascade" if (CREATED_LISTING_ID is None and code >= 400) else None, fail_reason="Geçerli ilan yok")
 
-    # ── Try to get Room ID from matches (created after accept with playerNeeded=1) ──
+    # ── Get Room ID from matches (4/4 dolunca room oluşur) ──
     try:
         mc, mr, mm = make_request("GET", "/api/Users/me/matches?page=1&pageSize=5")
         if mc == 200:
             matches_data = json.loads(mr)
             items = matches_data.get('items', matches_data) if isinstance(matches_data, dict) else matches_data
             if isinstance(items, list) and len(items) > 0:
-                MATCH_ROOM_ID = items[0].get('id') or items[0].get('roomId')
+                MATCH_ROOM_ID = items[0].get('roomId') or items[0].get('id')
                 print(f"    🏠 Room ID bulundu: {MATCH_ROOM_ID}")
+            else:
+                print("    ⚠️ Match/Room henüz oluşmadı")
     except: pass
 
 def test_notifications():
@@ -471,7 +500,7 @@ def test_ratings():
     body = {"roomId": room_id, "toUserId": to_user, "score": 5, "comment": "Harika bir oyuncu!"}
     code, resp, ms = make_request("POST", "/api/Ratings", body)
     add_result("Ratings", "POST", "/api/Ratings", code, resp, "Oyuncu değerlendirmesi oluştur", True, body, ms,
-               fail_type="test_data" if code >= 400 else None, fail_reason="Geçerli room ID bulunamadı veya değerlendirme koşulları sağlanmadı" if not has_room else "Değerlendirme başarısız")
+               fail_type="test_data" if code >= 400 else None, fail_reason="Maç henüz tamamlanmadı (status: waiting) — sadece completed maçlar puanlanabilir")
     test_user = CURRENT_USER_ID or "00000000-0000-0000-0000-000000000001"
     code, resp, ms = make_request("GET", f"/api/Ratings/user/{test_user}")
     add_result("Ratings", "GET", "/api/Ratings/user/{userId}", code, resp, "Kullanıcının aldığı değerlendirmeler", True, None, ms)
