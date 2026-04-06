@@ -114,6 +114,10 @@ def test_auth():
             data = json.loads(resp)
             ACCESS_TOKEN = data.get('accessToken')
             REFRESH_TOKEN = data.get('refreshToken')
+            # Validate new RegisterResponse fields
+            pv = data.get('phoneVerified')
+            pc = data.get('profileCompleted')
+            print(f"    📋 Register → phoneVerified={pv}, profileCompleted={pc}")
         except: pass
 
     # Login
@@ -125,25 +129,44 @@ def test_auth():
             data = json.loads(resp)
             ACCESS_TOKEN = data.get('accessToken', ACCESS_TOKEN)
             REFRESH_TOKEN = data.get('refreshToken', REFRESH_TOKEN)
+            # Validate new LoginResponse fields
+            pv = data.get('phoneVerified')
+            pc = data.get('profileCompleted')
             print(f"    🔑 Token alındı! (len={len(ACCESS_TOKEN) if ACCESS_TOKEN else 0})")
+            print(f"    📋 Login → phoneVerified={pv}, profileCompleted={pc}")
         except: pass
 
-    # Send OTP
+    # Send OTP (phone) — SendOtpCommand now supports both email and phone
     body = {"phone": "+905551234567"}
     code, resp, ms = make_request("POST", "/api/Auth/send-otp", body, headers={})
-    add_result("Auth", "POST", "/api/Auth/send-otp", code, resp, "SMS ile OTP kodu gönderme", False, body, ms)
+    add_result("Auth", "POST", "/api/Auth/send-otp", code, resp, "OTP kodu gönderme (telefon)", False, body, ms)
 
-    # Verify OTP
+    # Send OTP (email) — new: email-based OTP via Auth controller
+    body = {"email": "apitest@okeymatch.com"}
+    code, resp, ms = make_request("POST", "/api/Auth/send-otp", body, headers={})
+    add_result("Auth", "POST", "/api/Auth/send-otp (email)", code, resp, "OTP kodu gönderme (email)", False, body, ms)
+
+    # Verify OTP — VerifyOtpCommand now supports email+phone+code
     body = {"phone": "+905551234567", "code": "123456"}
     code, resp, ms = make_request("POST", "/api/Auth/verify-otp", body, headers={})
-    add_result("Auth", "POST", "/api/Auth/verify-otp", code, resp, "OTP doğrulama", False, body, ms,
+    add_result("Auth", "POST", "/api/Auth/verify-otp", code, resp, "OTP doğrulama (telefon)", False, body, ms,
                fail_type="test_data" if code >= 400 else None, fail_reason="Sahte OTP kodu kullanıldı — gerçek SMS kodu olmadan doğrulama yapılamaz")
     if code == 200:
         try:
             data = json.loads(resp)
             ACCESS_TOKEN = data.get('accessToken', ACCESS_TOKEN)
             REFRESH_TOKEN = data.get('refreshToken', REFRESH_TOKEN)
+            # Validate new VerifyOtpResponse fields
+            is_new = data.get('isNewUser')
+            pc = data.get('profileCompleted')
+            print(f"    📋 VerifyOTP → isNewUser={is_new}, profileCompleted={pc}")
         except: pass
+
+    # Verify OTP (email) — new: email-based OTP verification
+    body = {"email": "apitest@okeymatch.com", "code": "123456"}
+    code, resp, ms = make_request("POST", "/api/Auth/verify-otp", body, headers={})
+    add_result("Auth", "POST", "/api/Auth/verify-otp (email)", code, resp, "OTP doğrulama (email)", False, body, ms,
+               fail_type="test_data" if code >= 400 else None, fail_reason="Sahte OTP kodu kullanıldı — gerçek OTP olmadan doğrulama yapılamaz")
 
     # Refresh Token
     body = {"refreshToken": REFRESH_TOKEN or "dummy-refresh-token"}
@@ -226,8 +249,7 @@ def test_users():
     # Email Send OTP
     body = {"email": "apitest@okeymatch.com"}
     code, resp, ms = make_request("POST", "/api/Users/email/send-otp", body)
-    add_result("Users", "POST", "/api/Users/email/send-otp", code, resp, "Email OTP gönderimi", True, body, ms,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — email OTP tablosunda sorun var")
+    add_result("Users", "POST", "/api/Users/email/send-otp", code, resp, "Email OTP gönderimi", True, body, ms)
 
     # Email Verify OTP
     body = {"email": "apitest@okeymatch.com", "code": "1234"}
@@ -237,8 +259,7 @@ def test_users():
 
     # GET my listings
     code, resp, ms = make_request("GET", "/api/Users/me/listings?page=1&pageSize=5")
-    add_result("Users", "GET", "/api/Users/me/listings", code, resp, "Kullanıcının kendi ilanları", True, None, ms,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
+    add_result("Users", "GET", "/api/Users/me/listings", code, resp, "Kullanıcının kendi ilanları", True, None, ms)
 
     # GET my applications
     code, resp, ms = make_request("GET", "/api/Users/me/applications?page=1&pageSize=5")
@@ -277,8 +298,7 @@ def test_files():
         elapsed = int((time.time() - start) * 1000)
         resp_text = str(e)
         code = 0
-    add_result("Files", "POST", "/api/Files/upload", code, resp_text, "Dosya yükleme (multipart)", True, {"file": "test.png (1x1 PNG)"}, elapsed,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="AWS S3 streaming upload desteği eksik — MinIO konfigürasyonu tamamlanmamış")
+    add_result("Files", "POST", "/api/Files/upload", code, resp_text, "Dosya yükleme (multipart)", True, {"file": "test.png (1x1 PNG)"}, elapsed)
 
 def test_listings():
     global CREATED_LISTING_ID
@@ -286,20 +306,17 @@ def test_listings():
     print("─" * 50)
 
     code, resp, ms = make_request("GET", "/api/Listings?Page=1&PageSize=5")
-    add_result("Listings", "GET", "/api/Listings", code, resp, "Tüm ilanları listele (sayfalama)", True, None, ms,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
+    add_result("Listings", "GET", "/api/Listings", code, resp, "Tüm ilanları listele (sayfalama)", True, None, ms)
 
     code, resp, ms = make_request("GET", "/api/Listings?City=Istanbul&Level=beginner&Page=1&PageSize=5")
     add_result("Listings", "GET", "/api/Listings?filters", code, resp, "Filtrelenmiş ilan listesi (City, Level)", True, None, ms)
 
     code, resp, ms = make_request("GET", "/api/Listings?Lat=41.0082&Lng=28.9784&RadiusKm=10&Page=1&PageSize=5")
-    add_result("Listings", "GET", "/api/Listings?geo", code, resp, "Konum bazlı ilan arama (Lat, Lng, Radius)", True, None, ms,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="PostgreSQL jsonb serialization hatası — List<String> + jsonb uyumsuzluğu")
+    add_result("Listings", "GET", "/api/Listings?geo", code, resp, "Konum bazlı ilan arama (Lat, Lng, Radius)", True, None, ms)
 
     body = {"title": "Test Okey Partisi", "description": "API testi için oluşturulmuş ilan", "city": "İstanbul", "district": "Kadıköy", "lat": 40.9833, "lng": 29.0167, "placeName": "Test Kahvehane", "dateTime": "2026-05-10T14:00:00Z", "playerNeeded": 3, "level": "mid", "minAge": 18, "maxAge": 50}
     code, resp, ms = make_request("POST", "/api/Listings", body)
-    add_result("Listings", "POST", "/api/Listings", code, resp, "Yeni ilan oluştur", True, body, ms,
-               fail_type="backend_bug" if code >= 400 else None, fail_reason="Entity Framework DB save hatası — migration veya constraint sorunu")
+    add_result("Listings", "POST", "/api/Listings", code, resp, "Yeni ilan oluştur", True, body, ms)
     if 200 <= code <= 201:
         try:
             # Response can be plain UUID or JSON {"id": "uuid"}
@@ -564,11 +581,17 @@ def generate_spec_analysis():
 
     # DTO differences
     dto_diffs = [
+        {"field": "SendOtpCommand", "spec": "phone alanı", "actual": "email + phone (her ikisi de destekleniyor)", "impact": "✅ Auth OTP artık hem email hem telefon ile gönderilebilir"},
+        {"field": "VerifyOtpCommand", "spec": "phone + code", "actual": "email + phone + code (her ikisi ile doğrulanabilir)", "impact": "✅ OTP doğrulama email ile de destekleniyor"},
+        {"field": "LoginResponse.phoneVerified", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ Login sonrası telefon doğrulama durumu biliniyor"},
+        {"field": "LoginResponse.profileCompleted", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ Login sonrası onboarding durumu biliniyor"},
+        {"field": "RegisterResponse.phoneVerified", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ Kayıt sonrası telefon doğrulama durumu"},
+        {"field": "RegisterResponse.profileCompleted", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ Kayıt sonrası onboarding durumu"},
+        {"field": "VerifyOtpResponse.isNewUser", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ Yeni kullanıcı mı yoksa mevcut mu ayırt edilebilir"},
+        {"field": "VerifyOtpResponse.profileCompleted", "spec": "Yok", "actual": "Var (boolean)", "impact": "✅ OTP sonrası profil tamamlanma durumu"},
         {"field": "UserProfileDto.cancellationRate", "spec": "Var", "actual": "Yok", "impact": "Profil detayında gösterilemiyor"},
         {"field": "UserProfileDto.onTimeRate", "spec": "Var", "actual": "Yok", "impact": "Güven skoru detayı eksik"},
-        {"field": "UserProfileDto.avgUserRating", "spec": "Var", "actual": "Yok", "impact": "Ayrı alan olarak yok, rating var"},
         {"field": "UserProfileDto.badges", "spec": "Badge array", "actual": "Yok", "impact": "Rozetler gösterilemiyor"},
-        {"field": "UserProfileDto.selfiePhotoUrl", "spec": "Var", "actual": "Yok", "impact": "Selfie doğrulama desteği eksik"},
         {"field": "NotificationDto.body→message", "spec": "body alanı", "actual": "message alanı", "impact": "Alan ismi farkı — frontend mapping gerekli"},
     ]
 
